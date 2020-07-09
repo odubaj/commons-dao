@@ -29,6 +29,7 @@ import com.epam.ta.reportportal.entity.log.Log;
 import com.epam.ta.reportportal.entity.pattern.PatternTemplateTestItem;
 import com.epam.ta.reportportal.entity.project.Project;
 import com.epam.ta.reportportal.entity.project.ProjectAttribute;
+import com.epam.ta.reportportal.entity.project.ProjectRole;
 import com.epam.ta.reportportal.entity.user.ProjectUser;
 import com.epam.ta.reportportal.entity.user.User;
 import com.epam.ta.reportportal.entity.user.UserRole;
@@ -301,22 +302,22 @@ public class ResultFetchers {
 
 	public static final Function<Result<? extends Record>, ReportPortalUser> REPORTPORTAL_USER_FETCHER = records -> {
 		if (!CollectionUtils.isEmpty(records)) {
-			ReportPortalUser user = ReportPortalUser.userBuilder()
-					.withUserName(records.get(0).get(USERS.LOGIN))
-					.withPassword(ofNullable(records.get(0).get(USERS.PASSWORD)).orElse(""))
-					.withAuthorities(Collections.emptyList())
-					.withUserId(records.get(0).get(USERS.ID))
-					.withUserRole(UserRole.findByName(records.get(0).get(USERS.ROLE))
+			ReportPortalUser user = ReportPortalUser.builder()
+					.username(records.get(0).get(USERS.LOGIN))
+					.password(ofNullable(records.get(0).get(USERS.PASSWORD)).orElse(""))
+					.authorities(Collections.emptyList())
+					.userId(records.get(0).get(USERS.ID))
+					.userRole(UserRole.findByName(records.get(0).get(USERS.ROLE))
 							.orElseThrow(() -> new ReportPortalException(ErrorType.UNCLASSIFIED_REPORT_PORTAL_ERROR)))
-					.withProjectDetails(new HashMap<>(records.size()))
-					.withEmail(records.get(0).get(USERS.EMAIL))
+					.projectDetails(new HashMap<>(records.size()))
+					.email(records.get(0).get(USERS.EMAIL))
 					.build();
 			records.forEach(record -> ofNullable(record.get(PROJECT_USER.PROJECT_ID, Long.class)).ifPresent(projectId -> {
 				String projectName = record.get(PROJECT.NAME, String.class);
 				ReportPortalUser.ProjectDetails projectDetails = ReportPortalUser.ProjectDetails.builder()
-						.withProjectId(projectId)
-						.withProjectName(projectName)
-						.withProjectRole(record.get(PROJECT_USER.PROJECT_ROLE, String.class))
+						.projectId(projectId)
+						.projectName(projectName)
+						.projectRole(record.get(PROJECT_USER.PROJECT_ROLE, ProjectRole.class))
 						.build();
 				user.getProjectDetails().put(projectName, projectDetails);
 			}));
