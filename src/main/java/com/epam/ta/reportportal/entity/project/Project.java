@@ -25,7 +25,6 @@ import com.epam.ta.reportportal.entity.user.ProjectUser;
 import com.google.common.collect.Sets;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -37,7 +36,6 @@ import java.util.Set;
  * @author Ivan Budayeu
  */
 @Entity
-@EntityListeners(AuditingEntityListener.class)
 @TypeDef(name = "json", typeClass = Metadata.class)
 @Table(name = "project", schema = "public")
 public class Project implements Serializable {
@@ -81,7 +79,7 @@ public class Project implements Serializable {
 	@Column(name = "allocated_storage", updatable = false)
 	private long allocatedStorage;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "project", cascade = CascadeType.PERSIST)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "project", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
 	private Set<ProjectUser> users = Sets.newHashSet();
 
 	@OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, orphanRemoval = true)

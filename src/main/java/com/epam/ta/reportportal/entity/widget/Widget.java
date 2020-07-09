@@ -20,8 +20,6 @@ import com.epam.ta.reportportal.entity.ShareableEntity;
 import com.epam.ta.reportportal.entity.dashboard.DashboardWidget;
 import com.epam.ta.reportportal.entity.filter.UserFilter;
 import com.google.common.collect.Sets;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
@@ -64,7 +62,6 @@ public class Widget extends ShareableEntity implements Serializable {
 	private WidgetOptions widgetOptions;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "widget")
-	@Fetch(value = FetchMode.JOIN)
 	private Set<DashboardWidget> dashboardWidgets = Sets.newHashSet();
 
 	public String getName() {

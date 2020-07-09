@@ -18,12 +18,12 @@ package com.epam.ta.reportportal.entity.dashboard;
 
 import com.epam.ta.reportportal.entity.ShareableEntity;
 import com.google.common.collect.Sets;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -32,7 +32,6 @@ import java.util.Set;
  * @author Pavel Bortnik
  */
 @Entity
-@EntityListeners(AuditingEntityListener.class)
 public class Dashboard extends ShareableEntity implements Serializable {
 
 	@Column(name = "name")
@@ -46,7 +45,6 @@ public class Dashboard extends ShareableEntity implements Serializable {
 	private LocalDateTime creationDate;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "dashboard")
-	@Fetch(value = FetchMode.JOIN)
 	private Set<DashboardWidget> widgets = Sets.newHashSet();
 
 	public String getName() {

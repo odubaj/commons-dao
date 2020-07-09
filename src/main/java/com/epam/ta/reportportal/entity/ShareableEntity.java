@@ -36,7 +36,7 @@ public abstract class ShareableEntity {
 
 	private boolean shared;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "project_id")
 	private Project project;
 
