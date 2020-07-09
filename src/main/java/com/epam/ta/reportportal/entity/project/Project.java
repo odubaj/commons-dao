@@ -79,7 +79,7 @@ public class Project implements Serializable {
 	@Column(name = "allocated_storage", updatable = false)
 	private long allocatedStorage;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "project", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
 	private Set<ProjectUser> users = Sets.newHashSet();
 
 	@OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, orphanRemoval = true)
