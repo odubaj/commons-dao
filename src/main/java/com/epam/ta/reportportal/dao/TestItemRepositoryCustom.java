@@ -353,4 +353,6 @@ public interface TestItemRepositoryCustom extends FilterableRepository<TestItem>
 	 */
 
 	List<NestedStep> findAllNestedStepsByIds(Collection<Long> ids, Queryable logFilter, boolean excludePassedLogs);
+
+	List<Long> findIdsUnderTestItem(Long testItemId);
 }

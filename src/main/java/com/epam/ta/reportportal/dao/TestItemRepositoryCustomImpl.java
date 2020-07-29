@@ -84,6 +84,7 @@ public class TestItemRepositoryCustomImpl implements TestItemRepositoryCustom {
 	private static final String RESULT_INNER_TABLE = "resultInnerTable";
 
 	private static final String CHILD_ITEM_TABLE = "child";
+	private static final String PARENT_ITEM_TABLE = "parent";
 
 	private static final String ITEM_START_TIME = "itemStartTime";
 	private static final String LAUNCH_START_TIME = "launchStartTime";
@@ -127,22 +128,19 @@ public class TestItemRepositoryCustomImpl implements TestItemRepositoryCustom {
 		).with(launchPageable).build().asTable(LAUNCHES);
 
 		return PageableExecutionUtils.getPage(TEST_ITEM_FETCHER.apply(dsl.fetch(QueryBuilder.newBuilder(testItemFilter)
-						.with(testItemPageable)
-						.addJointToStart(launchesTable,
-								JoinType.JOIN,
-								TEST_ITEM.LAUNCH_ID.eq(fieldName(launchesTable.getName(), ID).cast(Long.class))
-						)
-						.wrap()
-						.withWrapperSort(testItemPageable.getSort())
-						.build())),
-				testItemPageable,
-				() -> dsl.fetchCount(QueryBuilder.newBuilder(testItemFilter)
-						.addJointToStart(launchesTable,
-								JoinType.JOIN,
-								TEST_ITEM.LAUNCH_ID.eq(fieldName(launchesTable.getName(), ID).cast(Long.class))
-						)
-						.build())
-		);
+				.with(testItemPageable)
+				.addJointToStart(launchesTable,
+						JoinType.JOIN,
+						TEST_ITEM.LAUNCH_ID.eq(fieldName(launchesTable.getName(), ID).cast(Long.class))
+				)
+				.wrap()
+				.withWrapperSort(testItemPageable.getSort())
+				.build())), testItemPageable, () -> dsl.fetchCount(QueryBuilder.newBuilder(testItemFilter)
+				.addJointToStart(launchesTable,
+						JoinType.JOIN,
+						TEST_ITEM.LAUNCH_ID.eq(fieldName(launchesTable.getName(), ID).cast(Long.class))
+				)
+				.build()));
 	}
 
 	@Override
@@ -237,12 +235,11 @@ public class TestItemRepositoryCustomImpl implements TestItemRepositoryCustom {
 	private <T> Page<TestItemHistory> fetchHistory(SelectQuery<? extends Record> filteringQuery, Condition baselineCondition,
 			int historyDepth, Pageable pageable, Field<T> historyGroupingField) {
 		JTestItem outerItemTable = TEST_ITEM.as(OUTER_ITEM_TABLE);
-		Field<Long[]> historyField = DSL.arrayAgg(fieldName(RESULT_INNER_TABLE, TEST_ITEM.ITEM_ID.getName()).cast(Long.class))
-				.orderBy(fieldName(RESULT_INNER_TABLE, ITEM_START_TIME).desc(),
-						fieldName(RESULT_INNER_TABLE, LAUNCH_START_TIME).desc(),
-						fieldName(RESULT_INNER_TABLE, LAUNCH.NUMBER.getName()).desc()
-				)
-				.as(HISTORY);
+		Field<Long[]> historyField = DSL.arrayAgg(fieldName(RESULT_INNER_TABLE, TEST_ITEM.ITEM_ID.getName()).cast(Long.class)).orderBy(
+				fieldName(RESULT_INNER_TABLE, ITEM_START_TIME).desc(),
+				fieldName(RESULT_INNER_TABLE, LAUNCH_START_TIME).desc(),
+				fieldName(RESULT_INNER_TABLE, LAUNCH.NUMBER.getName()).desc()
+		).as(HISTORY);
 
 		JTestItem innerItemTable = TEST_ITEM.as(INNER_ITEM_TABLE);
 		JTestItem resultTable = TEST_ITEM.as(RESULT_OUTER_TABLE);
@@ -267,22 +264,19 @@ public class TestItemRepositoryCustomImpl implements TestItemRepositoryCustom {
 				))
 				.collect(toList());
 
-		return PageableExecutionUtils.getPage(result,
-				pageable,
-				() -> dsl.fetchCount(buildHistoryQuery(filteringQuery,
-						innerItemTable,
-						outerItemTable,
-						resultTable,
-						historyField,
-						baselineCondition.and(LAUNCH.MODE.eq(JLaunchModeEnum.DEFAULT)),
-						1,
-						Pair.of(Boolean.FALSE, pageable),
-						TEST_ITEM.field(historyGroupingField),
-						resultTable.field(historyGroupingField),
-						outerItemTable.field(historyGroupingField),
-						innerItemTable.field(historyGroupingField)
-				))
-		);
+		return PageableExecutionUtils.getPage(result, pageable, () -> dsl.fetchCount(buildHistoryQuery(filteringQuery,
+				innerItemTable,
+				outerItemTable,
+				resultTable,
+				historyField,
+				baselineCondition.and(LAUNCH.MODE.eq(JLaunchModeEnum.DEFAULT)),
+				1,
+				Pair.of(Boolean.FALSE, pageable),
+				TEST_ITEM.field(historyGroupingField),
+				resultTable.field(historyGroupingField),
+				outerItemTable.field(historyGroupingField),
+				innerItemTable.field(historyGroupingField)
+		)));
 	}
 
 	private <T> SelectHavingStep<Record2<T, Long[]>> buildHistoryQuery(SelectQuery<? extends Record> filteringQuery,
@@ -318,35 +312,37 @@ public class TestItemRepositoryCustomImpl implements TestItemRepositoryCustom {
 
 		Table<Record2<T, Timestamp>> testCaseIdTable = testCaseIdQuery.asTable(TEST_CASE_ID_TABLE);
 
-		return dsl.select(resultTableHistoryField, historyField)
-				.from(itemsQuery.asTable(resultItemTable.getName())
-						.join(lateral(select(outerTableHistoryField,
-								outerItemTable.ITEM_ID,
-								outerItemTable.START_TIME.as(ITEM_START_TIME),
-								LAUNCH.START_TIME.as(LAUNCH_START_TIME),
-								LAUNCH.NUMBER
-						).from(outerItemTable)
+		return dsl.select(resultTableHistoryField, historyField).from(itemsQuery.asTable(resultItemTable.getName())
+				.join(lateral(select(outerTableHistoryField,
+						outerItemTable.ITEM_ID,
+						outerItemTable.START_TIME.as(ITEM_START_TIME),
+						LAUNCH.START_TIME.as(LAUNCH_START_TIME),
+						LAUNCH.NUMBER
+				).from(outerItemTable)
+						.join(LAUNCH)
+						.on(outerItemTable.LAUNCH_ID.eq(LAUNCH.ID))
+						.join(lateral(select(innerItemTable.ITEM_ID).from(innerItemTable)
 								.join(LAUNCH)
-								.on(outerItemTable.LAUNCH_ID.eq(LAUNCH.ID))
-								.join(lateral(select(innerItemTable.ITEM_ID).from(innerItemTable)
-										.join(LAUNCH)
-										.on(innerItemTable.LAUNCH_ID.eq(LAUNCH.ID))
-										.join(testCaseIdTable)
-										.on(innerTableHistoryField.eq(testCaseIdTable.field(commonHistoryField)))
-										.where(baselineCondition.and(innerItemTable.HAS_STATS)
-												.and(innerItemTable.ITEM_ID.eq(outerItemTable.ITEM_ID))
-												.and(innerItemTable.START_TIME.lessOrEqual(testCaseIdTable.field(maxStartTimeField))))
-										.orderBy(innerItemTable.START_TIME.desc(), LAUNCH.START_TIME.desc(), LAUNCH.NUMBER.desc())).as(
-										LATERAL_TABLE))
-								.on(DSL.trueCondition())
-								.where(baselineCondition.and(outerItemTable.HAS_STATS)
-										.and(outerTableHistoryField.in(itemsQuery))
-										.and(outerTableHistoryField.eq(resultTableHistoryField)))
-								.orderBy(outerItemTable.START_TIME.desc(), LAUNCH.START_TIME.desc(), LAUNCH.NUMBER.desc())
-								.limit(historyDepth)).as(RESULT_INNER_TABLE))
-						.on(resultTableHistoryField.eq(fieldName(RESULT_INNER_TABLE, commonHistoryField.getName()).cast(
-								resultTableHistoryField.getDataType().getType()))))
-				.groupBy(resultTableHistoryField);
+								.on(innerItemTable.LAUNCH_ID.eq(LAUNCH.ID))
+								.join(testCaseIdTable)
+								.on(innerTableHistoryField.eq(testCaseIdTable.field(commonHistoryField)))
+								.where(baselineCondition.and(innerItemTable.HAS_STATS)
+										.and(innerItemTable.ITEM_ID.eq(outerItemTable.ITEM_ID))
+										.and(innerItemTable.START_TIME.lessOrEqual(testCaseIdTable.field(maxStartTimeField))))
+								.orderBy(innerItemTable.START_TIME.desc(),
+										LAUNCH.START_TIME.desc(),
+										LAUNCH.NUMBER.desc()
+								)).as(LATERAL_TABLE))
+						.on(DSL.trueCondition())
+						.where(baselineCondition.and(outerItemTable.HAS_STATS)
+								.and(outerTableHistoryField.in(itemsQuery))
+								.and(outerTableHistoryField.eq(resultTableHistoryField)))
+						.orderBy(outerItemTable.START_TIME.desc(), LAUNCH.START_TIME.desc(), LAUNCH.NUMBER.desc())
+						.limit(historyDepth)).as(RESULT_INNER_TABLE))
+				.on(resultTableHistoryField.eq(fieldName(
+						RESULT_INNER_TABLE,
+						commonHistoryField.getName()
+				).cast(resultTableHistoryField.getDataType().getType())))).groupBy(resultTableHistoryField);
 	}
 
 	@Override
@@ -776,4 +772,18 @@ public class TestItemRepositoryCustomImpl implements TestItemRepositoryCustom {
 		}
 	}
 
+	@Override
+	public List<Long> findIdsUnderTestItem(Long testItemId) {
+		JTestItem parentItemTable = TEST_ITEM.as(PARENT_ITEM_TABLE);
+		JTestItem childItemTable = TEST_ITEM.as(CHILD_ITEM_TABLE);
+
+		return dsl.selectDistinct(TEST_ITEM.ITEM_ID)
+				.from(TEST_ITEM)
+				.join(childItemTable)
+				.on(TEST_ITEM.ITEM_ID.eq(childItemTable.ITEM_ID))
+				.join(parentItemTable)
+				.on(DSL.sql(childItemTable.PATH + " <@ " + parentItemTable.PATH))
+				.where(parentItemTable.ITEM_ID.eq(testItemId))
+				.fetchInto(Long.class);
+	}
 }
