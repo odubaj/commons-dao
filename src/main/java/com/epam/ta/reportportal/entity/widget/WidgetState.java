@@ -15,6 +15,8 @@ public enum WidgetState {
 
 	READY("ready"),
 
+	MANUAL("manual"),
+
 	FAILED("failed");
 
 	WidgetState(String value) {
