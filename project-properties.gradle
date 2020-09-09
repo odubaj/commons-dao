@@ -6,7 +6,7 @@ def migrationsScriptsUrl = 'https://raw.githubusercontent.com/odubaj/migrations/
 
 project.ext {
     releaseMode = project.hasProperty("releaseMode")
-    scriptsUrl = commonScriptsUrl + (releaseMode ? getProperty('scripts.version') : 'odubaj-private-develop')
+    scriptsUrl = commonScriptsUrl + (releaseMode ? getProperty('scripts.version') : 'develop')
     migrationsUrl = migrationsScriptsUrl + (releaseMode ? getProperty('migrations.version') : 'odubaj-private-develop')
     testScriptsSrc = [
             (migrationsUrl + '/migrations/0_extensions.up.sql')                        : 'V001__extensions.sql',
