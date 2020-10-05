@@ -411,6 +411,70 @@ public enum FilterTarget {
 							).toString())
 							.get(),
 
+
+
+
+
+
+					/*new CriteriaHolderBuilder().newBuilder(CRITERIA_LAUNCH_ATTRIBUTE_KEY, LAUNCH_ATTRIBUTE.KEY, List.class)
+							.withAggregateCriteria(DSL.arrayAggDistinct(LAUNCH_ATTRIBUTE.KEY)
+									.filterWhere(LAUNCH_ATTRIBUTE.SYSTEM.eq(false))
+									.toString())
+							.get(),
+
+					new CriteriaHolderBuilder().newBuilder(CRITERIA_LAUNCH_ATTRIBUTE_VALUE, LAUNCH_ATTRIBUTE.VALUE, List.class)
+							.withAggregateCriteria(DSL.arrayAggDistinct(LAUNCH_ATTRIBUTE.VALUE)
+									.filterWhere(LAUNCH_ATTRIBUTE.SYSTEM.eq(false))
+									.toString())
+							.get(),
+
+					new CriteriaHolderBuilder().newBuilder(CRITERIA_COMPOSITE_ATTRIBUTE, LAUNCH_ATTRIBUTE.KEY, List.class)
+							.withAggregateCriteria(DSL.field("array_cat({0}, {1})::varchar[]",
+									DSL.arrayAgg(DSL.concat(DSL.coalesce(LAUNCH_ATTRIBUTE.KEY, ""),
+											DSL.val(KEY_VALUE_SEPARATOR),
+											LAUNCH_ATTRIBUTE.VALUE
+									)).filterWhere(LAUNCH_ATTRIBUTE.SYSTEM.eq(false)),
+									DSL.arrayAgg(DSL.concat(DSL.coalesce(LAUNCH_ATTRIBUTE.KEY, ""),
+											DSL.val(KEY_VALUE_SEPARATOR),
+											LAUNCH_ATTRIBUTE.VALUE
+									)).filterWhere(LAUNCH_ATTRIBUTE.SYSTEM.eq(false))
+							).toString())
+							.get(),*/
+
+
+
+					
+
+					//povodne
+					new CriteriaHolderBuilder().newBuilder(CRITERIA_LAUNCH_ATTRIBUTE_KEY,
+							LAUNCH_ATTRIBUTE.KEY,
+							String.class,
+							Lists.newArrayList(JoinEntity.of(ITEM_ATTRIBUTE, JoinType.JOIN, TEST_ITEM.LAUNCH_ID.eq(LAUNCH_ATTRIBUTE.LAUNCH_ID)))
+					).withAggregateCriteria(DSL.arrayAggDistinct(LAUNCH_ATTRIBUTE.KEY).filterWhere(LAUNCH_ATTRIBUTE.SYSTEM.eq(false)).toString()).get(),
+					new CriteriaHolderBuilder().newBuilder(CRITERIA_LAUNCH_ATTRIBUTE_VALUE,
+							LAUNCH_ATTRIBUTE.VALUE,
+							String.class,
+							Lists.newArrayList(JoinEntity.of(ITEM_ATTRIBUTE, JoinType.JOIN, TEST_ITEM.LAUNCH_ID.eq(LAUNCH_ATTRIBUTE.LAUNCH_ID)))
+					)
+							.withAggregateCriteria(DSL.arrayAggDistinct(LAUNCH_ATTRIBUTE.VALUE)
+									.filterWhere(LAUNCH_ATTRIBUTE.SYSTEM.eq(false))
+									.toString())
+							.get(),
+					
+					
+
+//toto ako tak fungovalo
+					/*new CriteriaHolderBuilder().newBuilder(CRITERIA_LAUNCH_ATTRIBUTE_KEY, LAUNCH_ATTRIBUTE.KEY, List.class)
+					.withAggregateCriteria(DSL.arrayAggDistinct(LAUNCH_ATTRIBUTE.KEY).toString()).get(),
+					new CriteriaHolderBuilder().newBuilder(CRITERIA_LAUNCH_ATTRIBUTE_VALUE, LAUNCH_ATTRIBUTE.VALUE, List.class)
+					.withAggregateCriteria(DSL.arrayAggDistinct(LAUNCH_ATTRIBUTE.VALUE).toString()).get(),*/
+
+
+
+
+
+
+
 					new CriteriaHolderBuilder().newBuilder(CRITERIA_PATTERN_TEMPLATE_NAME, PATTERN_TEMPLATE.NAME, List.class)
 							.withAggregateCriteria(DSL.arrayAggDistinct(PATTERN_TEMPLATE.NAME).toString())
 							.get(),
@@ -444,6 +508,9 @@ public enum FilterTarget {
 					ITEM_ATTRIBUTE.KEY,
 					ITEM_ATTRIBUTE.VALUE,
 					ITEM_ATTRIBUTE.SYSTEM,
+					//LAUNCH_ATTRIBUTE.KEY,
+					//LAUNCH_ATTRIBUTE.VALUE,
+					//LAUNCH_ATTRIBUTE.SYSTEM,
 					PARAMETER.ITEM_ID,
 					PARAMETER.KEY,
 					PARAMETER.VALUE,

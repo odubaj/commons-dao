@@ -93,6 +93,29 @@ public class ItemAttributeRepositoryCustomImpl implements ItemAttributeRepositor
 				.fetch(ITEM_ATTRIBUTE.KEY);
 	}
 
+	public List<Long> findLaunchIdsByKeys(Long projectId, String key) {
+		return dslContext.select(LAUNCH.ID)
+				.from(LAUNCH)
+				.join(ITEM_ATTRIBUTE)
+				.on(LAUNCH.ID.eq(ITEM_ATTRIBUTE.LAUNCH_ID))
+				.where(LAUNCH.PROJECT_ID.eq(projectId))
+				.and(ITEM_ATTRIBUTE.SYSTEM.eq(false))
+				.and(ITEM_ATTRIBUTE.KEY.likeIgnoreCase("%" + DSL.escape(key, '\\') + "%"))
+				.fetchInto(Long.class);
+				
+	}
+
+	public List<Long> findLaunchIdsByValues(Long projectId, String value) {
+		return dslContext.select(LAUNCH.ID)
+				.from(LAUNCH)
+				.join(ITEM_ATTRIBUTE)
+				.on(LAUNCH.ID.eq(ITEM_ATTRIBUTE.LAUNCH_ID))
+				.where(LAUNCH.PROJECT_ID.eq(projectId))
+				.and(ITEM_ATTRIBUTE.SYSTEM.eq(false))
+				.and(ITEM_ATTRIBUTE.VALUE.likeIgnoreCase("%" + DSL.escape(value, '\\') + "%"))
+				.fetchInto(Long.class);
+	}
+
 	@Override
 	public List<String> findLaunchAttributeValues(Long projectId, String key, String value, boolean system) {
 		Condition condition = prepareFetchingValuesCondition(PROJECT.ID, projectId, key, value, system);

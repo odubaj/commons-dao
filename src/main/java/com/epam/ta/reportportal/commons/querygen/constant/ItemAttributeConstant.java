@@ -30,6 +30,9 @@ public final class ItemAttributeConstant {
 	public static final String CRITERIA_ITEM_ATTRIBUTE_KEY = "attributeKey";
 	public static final String CRITERIA_ITEM_ATTRIBUTE_VALUE = "attributeValue";
 	public static final String CRITERIA_ITEM_ATTRIBUTE_SYSTEM = "attributeSystem";
+	public static final String CRITERIA_LAUNCH_ATTRIBUTE_KEY = "attributeLaunchKey";
+	public static final String CRITERIA_LAUNCH_ATTRIBUTE_VALUE = "attributeLaunchValue";
+	public static final String CRITERIA_LAUNCH_ATTRIBUTE_SYSTEM = "attributeLaunchSystem";
 	public static final String CRITERIA_COMPOSITE_ATTRIBUTE = "compositeAttribute";
 	public static final String KEY_VALUE_SEPARATOR = ":";
 

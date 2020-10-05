@@ -25,7 +25,7 @@ public enum StatusEnum {
 	IN_PROGRESS("", false),
 	PASSED("passed", true),
 	FAILED("failed", false),
-	MANUAL("manual", false),
+	MANUAL("failed", false),
 	STOPPED("stopped", false), //status for manually stopped launches
 	SKIPPED("skipped", false),
 	INTERRUPTED("failed", false),

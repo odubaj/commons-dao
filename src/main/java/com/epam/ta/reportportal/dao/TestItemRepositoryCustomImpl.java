@@ -203,6 +203,8 @@ public class TestItemRepositoryCustomImpl implements TestItemRepositoryCustom {
 				launchPageable,
 				testItemPageable
 		);
+
+		//sem by som si mohol vytiahnut vsetky idcka launchov, ktore maju dane atributy - zas na to potrebujem rozbalit ten filter
 		return fetchHistory(filteringQuery,
 				LAUNCH.PROJECT_ID.eq(projectId).and(LAUNCH.NAME.eq(launchName)),
 				historyDepth,
@@ -307,6 +309,16 @@ public class TestItemRepositoryCustomImpl implements TestItemRepositoryCustom {
 				.groupBy(commonHistoryField)
 				.orderBy(max(TEST_ITEM.START_TIME));
 
+		//List<Long> launchKeyIds = (new ItemAttributeRepositoryCustomImpl(this.dsl)).findLaunchIdsByKeys(new Long(7), new String("distro"));
+		//List<Long> launchValueIds = (new ItemAttributeRepositoryCustomImpl(this.dsl)).findLaunchIdsByValues(new Long(7), new String("rhel-7"));
+		//launchValueIds.addAll(launchKeyIds);
+		//List<Long> launchValueIds = new ArrayList<>();
+		//launchValueIds.add(new Long(163));
+		//launchValueIds.add(new Long(166));
+		//launchValueIds.add(new Long(167));
+		//launchValueIds.add(new Long(201));
+
+
 		if (pageableConfig.getKey()) {
 			int limit = pageableConfig.getValue().getPageSize();
 			int offset = QueryBuilder.retrieveOffsetAndApplyBoundaries(pageableConfig.getValue());
@@ -341,7 +353,14 @@ public class TestItemRepositoryCustomImpl implements TestItemRepositoryCustom {
 								.on(DSL.trueCondition())
 								.where(baselineCondition.and(outerItemTable.HAS_STATS)
 										.and(outerTableHistoryField.in(itemsQuery))
-										.and(outerTableHistoryField.eq(resultTableHistoryField)))
+										.and(outerTableHistoryField.eq(resultTableHistoryField))
+										//.and(LAUNCH.ID.in(launchValueIds))
+										/*	.from(LAUNCH)
+											.join(ITEM_ATTRIBUTE)
+											.on(ITEM_ATTRIBUTE.LAUNCH_ID.eq(LAUNCH.ID))
+											.where((ITEM_ATTRIBUTE.KEY.eq(LAUNCH_ATTRIBUTE.KEY))
+												.and(ITEM_ATTRIBUTE.VALUE.eq(LAUNCH_ATTRIBUTE.VALUE)))))*/
+											)
 								.orderBy(outerItemTable.START_TIME.desc(), LAUNCH.START_TIME.desc(), LAUNCH.NUMBER.desc())
 								.limit(historyDepth)).as(RESULT_INNER_TABLE))
 						.on(resultTableHistoryField.eq(fieldName(RESULT_INNER_TABLE, commonHistoryField.getName()).cast(
