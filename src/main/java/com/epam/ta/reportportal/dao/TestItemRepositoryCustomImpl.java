@@ -90,6 +90,9 @@ public class TestItemRepositoryCustomImpl implements TestItemRepositoryCustom {
 	private static final String ACCUMULATED_STATISTICS = "accumulated_statistics";
 
 	private DSLContext dsl;
+	private String launchKey;
+	private String launchValue;
+	private Long projectId;
 
 	@Autowired
 	public void setDsl(DSLContext dsl) {
@@ -147,14 +150,20 @@ public class TestItemRepositoryCustomImpl implements TestItemRepositoryCustom {
 
 	@Override
 	public Page<TestItemHistory> loadItemsHistoryPage(Queryable filter, Pageable pageable, Long projectId, int historyDepth,
-			boolean usingHash) {
+			String launchKey, String launchValue, boolean usingHash) {
+		this.launchValue = launchValue;
+		this.launchKey = launchKey;
+		this.projectId = projectId;
 		SelectQuery<? extends Record> filteringQuery = QueryBuilder.newBuilder(filter).with(pageable.getSort()).build();
 		return fetchHistory(filteringQuery, LAUNCH.PROJECT_ID.eq(projectId), historyDepth, pageable, usingHash);
 	}
 
 	@Override
 	public Page<TestItemHistory> loadItemsHistoryPage(Queryable filter, Pageable pageable, Long projectId, String launchName,
-			int historyDepth, boolean usingHash) {
+			int historyDepth, String launchKey, String launchValue, boolean usingHash) {
+		this.launchValue = launchValue;
+		this.launchKey = launchKey;
+		this.projectId = projectId;
 		SelectQuery<? extends Record> filteringQuery = QueryBuilder.newBuilder(filter).with(pageable.getSort()).build();
 		return fetchHistory(filteringQuery,
 				LAUNCH.PROJECT_ID.eq(projectId).and(LAUNCH.NAME.eq(launchName)),
@@ -166,8 +175,10 @@ public class TestItemRepositoryCustomImpl implements TestItemRepositoryCustom {
 
 	@Override
 	public Page<TestItemHistory> loadItemsHistoryPage(Queryable filter, Pageable pageable, Long projectId, List<Long> launchIds,
-			int historyDepth, boolean usingHash) {
-
+			int historyDepth, String launchKey, String launchValue, boolean usingHash) {
+		this.launchValue = launchValue;
+		this.launchKey = launchKey;
+		this.projectId = projectId;
 		SelectQuery<? extends Record> filteringQuery = QueryBuilder.newBuilder(filter)
 				.with(pageable.getSort())
 				.addCondition(LAUNCH.ID.in(launchIds).and(LAUNCH.PROJECT_ID.eq(projectId)))
@@ -183,7 +194,11 @@ public class TestItemRepositoryCustomImpl implements TestItemRepositoryCustom {
 
 	@Override
 	public Page<TestItemHistory> loadItemsHistoryPage(boolean isLatest, Queryable launchFilter, Queryable testItemFilter,
-			Pageable launchPageable, Pageable testItemPageable, Long projectId, int historyDepth, boolean usingHash) {
+			Pageable launchPageable, Pageable testItemPageable, Long projectId, int historyDepth,
+			String launchKey, String launchValue, boolean usingHash) {
+		this.launchValue = launchValue;
+		this.launchKey = launchKey;
+		this.projectId = projectId;
 		SelectQuery<? extends Record> filteringQuery = buildCompositeFilterHistoryQuery(isLatest,
 				launchFilter,
 				testItemFilter,
@@ -196,7 +211,11 @@ public class TestItemRepositoryCustomImpl implements TestItemRepositoryCustom {
 
 	@Override
 	public Page<TestItemHistory> loadItemsHistoryPage(boolean isLatest, Queryable launchFilter, Queryable testItemFilter,
-			Pageable launchPageable, Pageable testItemPageable, Long projectId, String launchName, int historyDepth, boolean usingHash) {
+			Pageable launchPageable, Pageable testItemPageable, Long projectId, String launchName, int historyDepth,
+			String launchKey, String launchValue, boolean usingHash) {
+		this.launchValue = launchValue;
+		this.launchKey = launchKey;
+		this.projectId = projectId;
 		SelectQuery<? extends Record> filteringQuery = buildCompositeFilterHistoryQuery(isLatest,
 				launchFilter,
 				testItemFilter,
@@ -310,7 +329,7 @@ public class TestItemRepositoryCustomImpl implements TestItemRepositoryCustom {
 				.orderBy(max(TEST_ITEM.START_TIME));
 
 		//List<Long> launchKeyIds = (new ItemAttributeRepositoryCustomImpl(this.dsl)).findLaunchIdsByKeys(new Long(7), new String("distro"));
-		//List<Long> launchValueIds = (new ItemAttributeRepositoryCustomImpl(this.dsl)).findLaunchIdsByValues(new Long(7), new String("rhel-7"));
+		List<Long> launchValueIds = (new ItemAttributeRepositoryCustomImpl(this.dsl)).findLaunchIdsByValuesKeys(this.projectId, this.launchValue, this.launchKey);
 		//launchValueIds.addAll(launchKeyIds);
 		//List<Long> launchValueIds = new ArrayList<>();
 		//launchValueIds.add(new Long(163));
@@ -354,7 +373,7 @@ public class TestItemRepositoryCustomImpl implements TestItemRepositoryCustom {
 								.where(baselineCondition.and(outerItemTable.HAS_STATS)
 										.and(outerTableHistoryField.in(itemsQuery))
 										.and(outerTableHistoryField.eq(resultTableHistoryField))
-										//.and(LAUNCH.ID.in(launchValueIds))
+										.and(LAUNCH.ID.in(launchValueIds))
 										/*	.from(LAUNCH)
 											.join(ITEM_ATTRIBUTE)
 											.on(ITEM_ATTRIBUTE.LAUNCH_ID.eq(LAUNCH.ID))
