@@ -90,8 +90,8 @@ public class TestItemRepositoryCustomImpl implements TestItemRepositoryCustom {
 	private static final String ACCUMULATED_STATISTICS = "accumulated_statistics";
 
 	private DSLContext dsl;
-	private String launchKey;
-	private String launchValue;
+	private List<String> launchKeys;
+	private List<String> launchValues;
 	private Long projectId;
 
 	@Autowired
@@ -150,9 +150,9 @@ public class TestItemRepositoryCustomImpl implements TestItemRepositoryCustom {
 
 	@Override
 	public Page<TestItemHistory> loadItemsHistoryPage(Queryable filter, Pageable pageable, Long projectId, int historyDepth,
-			String launchKey, String launchValue, boolean usingHash) {
-		this.launchValue = launchValue;
-		this.launchKey = launchKey;
+			List<String> launchKeys, List<String> launchValues, boolean usingHash) {
+		this.launchValues = launchValues;
+		this.launchKeys = launchKeys;
 		this.projectId = projectId;
 		SelectQuery<? extends Record> filteringQuery = QueryBuilder.newBuilder(filter).with(pageable.getSort()).build();
 		return fetchHistory(filteringQuery, LAUNCH.PROJECT_ID.eq(projectId), historyDepth, pageable, usingHash);
@@ -160,9 +160,9 @@ public class TestItemRepositoryCustomImpl implements TestItemRepositoryCustom {
 
 	@Override
 	public Page<TestItemHistory> loadItemsHistoryPage(Queryable filter, Pageable pageable, Long projectId, String launchName,
-			int historyDepth, String launchKey, String launchValue, boolean usingHash) {
-		this.launchValue = launchValue;
-		this.launchKey = launchKey;
+			int historyDepth, List<String> launchKeys, List<String> launchValues, boolean usingHash) {
+		this.launchValues = launchValues;
+		this.launchKeys = launchKeys;
 		this.projectId = projectId;
 		SelectQuery<? extends Record> filteringQuery = QueryBuilder.newBuilder(filter).with(pageable.getSort()).build();
 		return fetchHistory(filteringQuery,
@@ -175,9 +175,9 @@ public class TestItemRepositoryCustomImpl implements TestItemRepositoryCustom {
 
 	@Override
 	public Page<TestItemHistory> loadItemsHistoryPage(Queryable filter, Pageable pageable, Long projectId, List<Long> launchIds,
-			int historyDepth, String launchKey, String launchValue, boolean usingHash) {
-		this.launchValue = launchValue;
-		this.launchKey = launchKey;
+			int historyDepth, List<String> launchKeys, List<String> launchValues, boolean usingHash) {
+		this.launchValues = launchValues;
+		this.launchKeys = launchKeys;
 		this.projectId = projectId;
 		SelectQuery<? extends Record> filteringQuery = QueryBuilder.newBuilder(filter)
 				.with(pageable.getSort())
@@ -195,9 +195,9 @@ public class TestItemRepositoryCustomImpl implements TestItemRepositoryCustom {
 	@Override
 	public Page<TestItemHistory> loadItemsHistoryPage(boolean isLatest, Queryable launchFilter, Queryable testItemFilter,
 			Pageable launchPageable, Pageable testItemPageable, Long projectId, int historyDepth,
-			String launchKey, String launchValue, boolean usingHash) {
-		this.launchValue = launchValue;
-		this.launchKey = launchKey;
+			List<String> launchKeys, List<String> launchValues, boolean usingHash) {
+		this.launchValues = launchValues;
+		this.launchKeys = launchKeys;
 		this.projectId = projectId;
 		SelectQuery<? extends Record> filteringQuery = buildCompositeFilterHistoryQuery(isLatest,
 				launchFilter,
@@ -212,9 +212,9 @@ public class TestItemRepositoryCustomImpl implements TestItemRepositoryCustom {
 	@Override
 	public Page<TestItemHistory> loadItemsHistoryPage(boolean isLatest, Queryable launchFilter, Queryable testItemFilter,
 			Pageable launchPageable, Pageable testItemPageable, Long projectId, String launchName, int historyDepth,
-			String launchKey, String launchValue, boolean usingHash) {
-		this.launchValue = launchValue;
-		this.launchKey = launchKey;
+			List<String> launchKeys, List<String> launchValues, boolean usingHash) {
+		this.launchValues = launchValues;
+		this.launchKeys = launchKeys;
 		this.projectId = projectId;
 		SelectQuery<? extends Record> filteringQuery = buildCompositeFilterHistoryQuery(isLatest,
 				launchFilter,
@@ -328,15 +328,7 @@ public class TestItemRepositoryCustomImpl implements TestItemRepositoryCustom {
 				.groupBy(commonHistoryField)
 				.orderBy(max(TEST_ITEM.START_TIME));
 
-		//List<Long> launchKeyIds = (new ItemAttributeRepositoryCustomImpl(this.dsl)).findLaunchIdsByKeys(new Long(7), new String("distro"));
-		List<Long> launchValueIds = (new ItemAttributeRepositoryCustomImpl(this.dsl)).findLaunchIdsByValuesKeys(this.projectId, this.launchValue, this.launchKey);
-		//launchValueIds.addAll(launchKeyIds);
-		//List<Long> launchValueIds = new ArrayList<>();
-		//launchValueIds.add(new Long(163));
-		//launchValueIds.add(new Long(166));
-		//launchValueIds.add(new Long(167));
-		//launchValueIds.add(new Long(201));
-
+		List<Long> launchKeyValueIds = (new ItemAttributeRepositoryCustomImpl(this.dsl)).findLaunchIdsByValuesKeys(this.projectId, this.launchValues, this.launchKeys);
 
 		if (pageableConfig.getKey()) {
 			int limit = pageableConfig.getValue().getPageSize();
@@ -366,6 +358,7 @@ public class TestItemRepositoryCustomImpl implements TestItemRepositoryCustom {
 										.on(innerTableHistoryField.eq(testCaseIdTable.field(commonHistoryField)))
 										.where(baselineCondition.and(innerItemTable.HAS_STATS)
 												.and(innerItemTable.ITEM_ID.eq(outerItemTable.ITEM_ID))
+												.and(innerItemTable.NAME.ne(new String("LOGS")))
 												.and(innerItemTable.START_TIME.lessOrEqual(testCaseIdTable.field(maxStartTimeField))))
 										.orderBy(innerItemTable.START_TIME.desc(), LAUNCH.START_TIME.desc(), LAUNCH.NUMBER.desc())).as(
 										LATERAL_TABLE))
@@ -373,13 +366,7 @@ public class TestItemRepositoryCustomImpl implements TestItemRepositoryCustom {
 								.where(baselineCondition.and(outerItemTable.HAS_STATS)
 										.and(outerTableHistoryField.in(itemsQuery))
 										.and(outerTableHistoryField.eq(resultTableHistoryField))
-										.and(LAUNCH.ID.in(launchValueIds))
-										/*	.from(LAUNCH)
-											.join(ITEM_ATTRIBUTE)
-											.on(ITEM_ATTRIBUTE.LAUNCH_ID.eq(LAUNCH.ID))
-											.where((ITEM_ATTRIBUTE.KEY.eq(LAUNCH_ATTRIBUTE.KEY))
-												.and(ITEM_ATTRIBUTE.VALUE.eq(LAUNCH_ATTRIBUTE.VALUE)))))*/
-											)
+										.and(LAUNCH.ID.in(launchKeyValueIds)))
 								.orderBy(outerItemTable.START_TIME.desc(), LAUNCH.START_TIME.desc(), LAUNCH.NUMBER.desc())
 								.limit(historyDepth)).as(RESULT_INNER_TABLE))
 						.on(resultTableHistoryField.eq(fieldName(RESULT_INNER_TABLE, commonHistoryField.getName()).cast(

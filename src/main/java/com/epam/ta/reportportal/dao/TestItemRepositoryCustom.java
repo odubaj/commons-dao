@@ -75,7 +75,8 @@ public interface TestItemRepositoryCustom extends FilterableRepository<TestItem>
 	 * @param historyDepth max {@link TestItemHistory} group size
 	 * @return {@link Page} with {@link TestItemHistory} as content
 	 */
-	Page<TestItemHistory> loadItemsHistoryPage(Queryable filter, Pageable pageable, Long projectId, int historyDepth, String launchKey, String launchValue, boolean usingHash);
+	Page<TestItemHistory> loadItemsHistoryPage(Queryable filter, Pageable pageable, Long projectId, int historyDepth, 
+			List<String> launchKeys, List<String> launchValues, boolean usingHash);
 
 	/**
 	 * Loads items {@link TestItemHistory} - {@link TestItem} executions from the {@link com.epam.ta.reportportal.entity.project.Project}
@@ -91,7 +92,7 @@ public interface TestItemRepositoryCustom extends FilterableRepository<TestItem>
 	 * @return {@link Page} with {@link TestItemHistory} as content
 	 */
 	Page<TestItemHistory> loadItemsHistoryPage(Queryable filter, Pageable pageable, Long projectId, String launchName, int historyDepth,
-			String launchKey, String launchValue, boolean usingHash);
+			List<String> launchKeys, List<String> launchValues, boolean usingHash);
 
 	/**
 	 * Loads items {@link TestItemHistory} - {@link TestItem} executions from the {@link com.epam.ta.reportportal.entity.project.Project}
@@ -107,7 +108,7 @@ public interface TestItemRepositoryCustom extends FilterableRepository<TestItem>
 	 * @return {@link Page} with {@link TestItemHistory} as content
 	 */
 	Page<TestItemHistory> loadItemsHistoryPage(Queryable filter, Pageable pageable, Long projectId, List<Long> launchIds, int historyDepth,
-			String launchKey, String launchValue, boolean usingHash);
+			List<String> launchKeys, List<String> launchValues, boolean usingHash);
 
 	/**
 	 * Loads items {@link TestItemHistory} - {@link TestItem} executions from the whole {@link com.epam.ta.reportportal.entity.project.Project}
@@ -126,7 +127,7 @@ public interface TestItemRepositoryCustom extends FilterableRepository<TestItem>
 	 * @return {@link Page} with {@link TestItemHistory} as content
 	 */
 	Page<TestItemHistory> loadItemsHistoryPage(boolean isLatest, Queryable launchFilter, Queryable testItemFilter, Pageable launchPageable,
-			Pageable testItemPageable, Long projectId, int historyDepth, String launchKey, String launchValue, boolean usingHash);
+			Pageable testItemPageable, Long projectId, int historyDepth, List<String> launchKeys, List<String> launchValues, boolean usingHash);
 
 	/**
 	 * Loads items {@link TestItemHistory} - {@link TestItem} executions from the {@link com.epam.ta.reportportal.entity.project.Project}
@@ -147,7 +148,7 @@ public interface TestItemRepositoryCustom extends FilterableRepository<TestItem>
 	 * @return {@link Page} with {@link TestItemHistory} as content
 	 */
 	Page<TestItemHistory> loadItemsHistoryPage(boolean isLatest, Queryable launchFilter, Queryable testItemFilter, Pageable launchPageable,
-			Pageable testItemPageable, Long projectId, String launchName, int historyDepth, String launchKey, String launchValue, boolean usingHash);
+			Pageable testItemPageable, Long projectId, String launchName, int historyDepth, List<String> launchKeys, List<String> launchValues, boolean usingHash);
 
 	/**
 	 * Selects all descendants of TestItem with provided id.
