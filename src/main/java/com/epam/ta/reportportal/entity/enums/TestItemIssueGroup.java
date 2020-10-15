@@ -36,6 +36,8 @@ public enum TestItemIssueGroup /*implements StatisticsAwareness*/ {
 
 	PRODUCT_BUG("PRODUCT_BUG", "productBug", "pb001"),
 	AUTOMATION_BUG("AUTOMATION_BUG", "automationBug", "ab001"),
+	WAIVED_AS_PASSED("WAIVED_AS_PASSED", "waivedAsPassed", "wap001"),
+	MANUAL_TEST("MANUAL_TEST", "manualTest", "mt001"),
 	SYSTEM_ISSUE("SYSTEM_ISSUE", "systemIssue", "si001"),
 	TO_INVESTIGATE("TO_INVESTIGATE", "toInvestigate", "ti001"),
 	NO_DEFECT("NO_DEFECT", "noDefect", "nd001");

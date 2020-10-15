@@ -325,6 +325,8 @@ public class WidgetContentRepositoryImpl implements WidgetContentRepository {
 												DEFECTS_NO_DEFECT_TOTAL,
 												DEFECTS_TO_INVESTIGATE_TOTAL,
 												DEFECTS_PRODUCT_BUG_TOTAL,
+												DEFECTS_WAIVED_AS_PASSED_TOTAL,
+												DEFECTS_MANUAL_TEST_TOTAL,
 												DEFECTS_SYSTEM_ISSUE_TOTAL
 										).and(STATISTICS.LAUNCH_ID.eq(LAUNCH.ID)))
 										.asField(), 0)), 2).as(TO_INVESTIGATE)
@@ -376,6 +378,8 @@ public class WidgetContentRepositoryImpl implements WidgetContentRepository {
 										DEFECTS_NO_DEFECT_TOTAL,
 										DEFECTS_TO_INVESTIGATE_TOTAL,
 										DEFECTS_PRODUCT_BUG_TOTAL,
+										DEFECTS_WAIVED_AS_PASSED_TOTAL,
+										DEFECTS_MANUAL_TEST_TOTAL,
 										DEFECTS_SYSTEM_ISSUE_TOTAL
 								).and(STATISTICS.LAUNCH_ID.eq(LAUNCH.ID)))
 								.asField(), 0).as(INVESTIGATED)
