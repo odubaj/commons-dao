@@ -156,8 +156,6 @@ public class ItemAttributeRepositoryCustomImpl implements ItemAttributeRepositor
 		} else {
 			return dslContext.select(LAUNCH.ID)
 				.from(LAUNCH)
-				.join(ITEM_ATTRIBUTE)
-				.on(LAUNCH.ID.eq(ITEM_ATTRIBUTE.LAUNCH_ID))
 				.where(LAUNCH.PROJECT_ID.eq(projectId))
 				.fetchInto(Long.class);
 		}
