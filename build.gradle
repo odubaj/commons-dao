@@ -100,4 +100,4 @@ test {
 afterReleaseBuild.dependsOn bintrayUpload
 checkCommitNeeded.dependsOn removeScripts
 test.dependsOn copyTestDatabaseScripts
-build.dependsOn jacocoTestReport
+//build.dependsOn jacocoTestReport
