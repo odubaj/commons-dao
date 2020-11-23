@@ -38,6 +38,8 @@ public enum TestItemIssueGroup /*implements StatisticsAwareness*/ {
 	AUTOMATION_BUG("AUTOMATION_BUG", "automationBug", "ab001"),
 	WAIVED_AS_PASSED("WAIVED_AS_PASSED", "waivedAsPassed", "wap001"),
 	MANUAL_TEST("MANUAL_TEST", "manualTest", "mt001"),
+	MANUAL_TEST_PASSED("MANUAL_TEST_PASSED", "manualTestPassed", "mtp001"),
+	MANUAL_TEST_FAILED("MANUAL_TEST_FAILED", "manualTestFailed", "mtf001"),
 	SYSTEM_ISSUE("SYSTEM_ISSUE", "systemIssue", "si001"),
 	TO_INVESTIGATE("TO_INVESTIGATE", "toInvestigate", "ti001"),
 	NO_DEFECT("NO_DEFECT", "noDefect", "nd001");
