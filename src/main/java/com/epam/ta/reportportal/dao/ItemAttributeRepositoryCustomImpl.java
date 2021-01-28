@@ -27,6 +27,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import static com.epam.ta.reportportal.dao.constant.WidgetContentRepositoryConstants.*;
 import static com.epam.ta.reportportal.dao.util.JooqFieldNameTransformer.fieldName;
@@ -91,6 +93,72 @@ public class ItemAttributeRepositoryCustomImpl implements ItemAttributeRepositor
 				.and(ITEM_ATTRIBUTE.SYSTEM.eq(system))
 				.and(ITEM_ATTRIBUTE.KEY.likeIgnoreCase("%" + DSL.escape(value, '\\') + "%"))
 				.fetch(ITEM_ATTRIBUTE.KEY);
+	}
+
+	public List<Long> getLaunchIdsByValues(Long projectId, List<String> values) {
+		List<Long> tmpList;
+		List<Long> myList = new ArrayList<Long>();
+		boolean firsttime = true;
+		for(String value : values) {
+			tmpList = dslContext.select(LAUNCH.ID)
+			.from(LAUNCH)
+			.join(ITEM_ATTRIBUTE)
+			.on(ITEM_ATTRIBUTE.LAUNCH_ID.eq(LAUNCH.ID))
+			.where(LAUNCH.PROJECT_ID.eq(projectId))
+			.and(ITEM_ATTRIBUTE.SYSTEM.eq(false))
+			.and(ITEM_ATTRIBUTE.VALUE.likeIgnoreCase("%" + DSL.escape(value, '\\') + "%"))
+			.fetchInto(Long.class);
+
+			if(firsttime) {
+				myList.addAll(tmpList);
+				firsttime = false;
+			} else {
+				myList.retainAll(tmpList);
+			}
+		}
+		return myList;
+	}
+
+	public List<Long> getLaunchIdsByKeys(Long projectId, List<String> keys) {
+		List<Long> tmpList;
+		List<Long> myList = new ArrayList<Long>();
+		boolean firsttime = true;
+		for(String key : keys) {
+			tmpList = dslContext.select(LAUNCH.ID)
+			.from(LAUNCH)
+			.join(ITEM_ATTRIBUTE)
+			.on(ITEM_ATTRIBUTE.LAUNCH_ID.eq(LAUNCH.ID))
+			.where(LAUNCH.PROJECT_ID.eq(projectId))
+			.and(ITEM_ATTRIBUTE.SYSTEM.eq(false))
+			.and(ITEM_ATTRIBUTE.KEY.likeIgnoreCase("%" + DSL.escape(key, '\\') + "%"))
+			.fetchInto(Long.class);
+
+			if(firsttime) {
+				myList.addAll(tmpList);
+				firsttime = false;
+			} else {
+				myList.retainAll(tmpList);
+			}
+		}
+		return myList;
+	}
+
+	public List<Long> findLaunchIdsByValuesKeys(Long projectId, List<String> values, List<String> keys) {
+		if (!keys.isEmpty() && !values.isEmpty()) {
+			List<Long> valuesList = getLaunchIdsByValues(projectId, values);
+			List<Long> keysList = getLaunchIdsByKeys(projectId, keys);
+			keysList.retainAll(valuesList);
+			return keysList;
+		} else if (keys.isEmpty() && !values.isEmpty()) {
+			return getLaunchIdsByValues(projectId, values);
+		} else if (!keys.isEmpty() && values.isEmpty()) {
+			return getLaunchIdsByKeys(projectId, keys);
+		} else {
+			return dslContext.select(LAUNCH.ID)
+				.from(LAUNCH)
+				.where(LAUNCH.PROJECT_ID.eq(projectId))
+				.fetchInto(Long.class);
+		}
 	}
 
 	@Override
