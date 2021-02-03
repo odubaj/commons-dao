@@ -712,12 +712,14 @@ class TestItemRepositoryTest extends BaseTest {
 				PageRequest.of(0, 2, sort),
 				1L,
 				5,
+				Collections.<String>emptyList(),
+				Collections.<String>emptyList(),
 				true
 		);
 
 		assertFalse(testItemHistories.isEmpty());
 
-		testItemHistories = testItemRepository.loadItemsHistoryPage(itemFilter, PageRequest.of(0, 2, sort), 1L, 5, false);
+		testItemHistories = testItemRepository.loadItemsHistoryPage(itemFilter, PageRequest.of(0, 2, sort), 1L, 5, Collections.<String>emptyList(), Collections.<String>emptyList(), false);
 
 		assertFalse(testItemHistories.isEmpty());
 	}
@@ -737,12 +739,14 @@ class TestItemRepositoryTest extends BaseTest {
 				PageRequest.of(0, 20, sort),
 				1L,
 				5,
+				Collections.<String>emptyList(),
+				Collections.<String>emptyList(),
 				true
 		);
 
 		assertTrue(testItemHistories.isEmpty());
 
-		testItemHistories = testItemRepository.loadItemsHistoryPage(itemFilter, PageRequest.of(0, 20, sort), 1L, 5, false);
+		testItemHistories = testItemRepository.loadItemsHistoryPage(itemFilter, PageRequest.of(0, 20, sort), 1L, 5, Collections.<String>emptyList(), Collections.<String>emptyList(), false);
 
 		assertTrue(testItemHistories.isEmpty());
 	}
@@ -761,12 +765,14 @@ class TestItemRepositoryTest extends BaseTest {
 				1L,
 				"launch name 1",
 				5,
+				Collections.<String>emptyList(),
+				Collections.<String>emptyList(),
 				true
 		);
 
 		assertTrue(testItemHistories.isEmpty());
 
-		testItemHistories = testItemRepository.loadItemsHistoryPage(itemFilter, PageRequest.of(0, 2, sort), 1L, "launch name 1", 5, false);
+		testItemHistories = testItemRepository.loadItemsHistoryPage(itemFilter, PageRequest.of(0, 2, sort), 1L, "launch name 1", 5, Collections.<String>emptyList(), Collections.<String>emptyList(), false);
 
 		assertTrue(testItemHistories.isEmpty());
 	}
@@ -785,6 +791,8 @@ class TestItemRepositoryTest extends BaseTest {
 				1L,
 				com.google.common.collect.Lists.newArrayList(1L, 2L, 3L),
 				5,
+				Collections.<String>emptyList(),
+				Collections.<String>emptyList(),
 				true
 		);
 
@@ -795,6 +803,8 @@ class TestItemRepositoryTest extends BaseTest {
 				1L,
 				com.google.common.collect.Lists.newArrayList(1L, 2L, 3L),
 				5,
+				Collections.<String>emptyList(),
+				Collections.<String>emptyList(),
 				false
 		);
 
@@ -822,6 +832,8 @@ class TestItemRepositoryTest extends BaseTest {
 				PageRequest.of(0, 2, sort),
 				1L,
 				5,
+				Collections.<String>emptyList(),
+				Collections.<String>emptyList(),
 				true
 		);
 
@@ -834,6 +846,8 @@ class TestItemRepositoryTest extends BaseTest {
 				PageRequest.of(0, 2, sort),
 				1L,
 				5,
+				Collections.<String>emptyList(),
+				Collections.<String>emptyList(),
 				false
 		);
 
@@ -862,6 +876,8 @@ class TestItemRepositoryTest extends BaseTest {
 				1L,
 				"launch name 1",
 				5,
+				Collections.<String>emptyList(),
+				Collections.<String>emptyList(),
 				true
 		);
 
@@ -875,6 +891,8 @@ class TestItemRepositoryTest extends BaseTest {
 				1L,
 				"launch name 1",
 				5,
+				Collections.<String>emptyList(),
+				Collections.<String>emptyList(),
 				false
 		);
 
@@ -896,7 +914,7 @@ class TestItemRepositoryTest extends BaseTest {
 		Filter baseFilter = new Filter(FilterTarget.TEST_ITEM_TARGET.getClazz(), commonConditions);
 
 		PageRequest pageable = PageRequest.of(0, 20, Sort.by(CRITERIA_ID));
-		List<TestItemHistory> content = custom.loadItemsHistoryPage(baseFilter, pageable, 1L, 30, false).getContent();
+		List<TestItemHistory> content = custom.loadItemsHistoryPage(baseFilter, pageable, 1L, 30, Collections.<String>emptyList(), Collections.<String>emptyList(), false).getContent();
 
 		assertFalse(content.isEmpty());
 
@@ -914,7 +932,7 @@ class TestItemRepositoryTest extends BaseTest {
 		Filter baseFilter = new Filter(FilterTarget.TEST_ITEM_TARGET.getClazz(), commonConditions);
 
 		PageRequest pageable = PageRequest.of(0, 20, Sort.by(CRITERIA_ID));
-		List<TestItemHistory> content = custom.loadItemsHistoryPage(baseFilter, pageable, 1L, 30, true).getContent();
+		List<TestItemHistory> content = custom.loadItemsHistoryPage(baseFilter, pageable, 1L, 30, Collections.<String>emptyList(), Collections.<String>emptyList(), true).getContent();
 
 		assertFalse(content.isEmpty());
 	}
