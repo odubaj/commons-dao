@@ -48,9 +48,13 @@ dependencies {
         compile 'com.epam.reportportal:commons-rules'
         compile 'com.epam.reportportal:commons-model'
     } else {
-        compile 'com.github.reportportal:commons:def053af'
-        compile 'com.github.reportportal:commons-rules:331c402'
-        compile 'com.github.reportportal:commons-model:22ccaac'
+        compile 'com.github.reportportal:commons:22bb0294'
+        compile 'com.github.reportportal:commons-rules:e40bf6e2'
+        //compile fileTree(dir: '/home/odubaj/DIPLOMKA/commons-rules/build/libs', include: ['*.jar'])
+        compile 'com.github.odubaj:commons-model:2a2f927'
+        //compile fileTree(dir: '/home/odubaj/DIPLOMKA/commons-model/build/libs', include: ['*.jar'])
+        //compile 'org.springframework.security:spring-security-core'
+        //compile 'org.springframework:spring-webmvc'
     }
 
     //https://nvd.nist.gov/vuln/detail/CVE-2020-10683 (dom4j 2.1.3 version dependency) AND https://nvd.nist.gov/vuln/detail/CVE-2019-14900
@@ -100,4 +104,4 @@ test {
 afterReleaseBuild.dependsOn bintrayUpload
 checkCommitNeeded.dependsOn removeScripts
 test.dependsOn copyTestDatabaseScripts
-build.dependsOn jacocoTestReport
+//build.dependsOn jacocoTestReport

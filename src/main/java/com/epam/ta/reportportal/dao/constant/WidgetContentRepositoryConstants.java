@@ -25,6 +25,7 @@ public class WidgetContentRepositoryConstants {
 	public static final String EXECUTIONS_FAILED = "statistics$executions$failed";
 	public static final String EXECUTIONS_SKIPPED = "statistics$executions$skipped";
 	public static final String EXECUTIONS_PASSED = "statistics$executions$passed";
+	public static final String EXECUTIONS_UNTESTED = "statistics$executions$untested";
 
 	public static final String DEFECTS_AUTOMATION_BUG_TOTAL = "statistics$defects$automation_bug$total";
 	public static final String DEFECTS_PRODUCT_BUG_TOTAL = "statistics$defects$product_bug$total";
@@ -90,7 +91,7 @@ public class WidgetContentRepositoryConstants {
 
 	/*Not passed cases widget constants*/
 	public static final String PERCENTAGE = "percentage";
-	public static final String NOT_PASSED_STATISTICS_KEY = "% (Failed+Skipped)/Total";
+	public static final String NOT_PASSED_STATISTICS_KEY = "% (Failed+Skipped+Untested)/Total";
 
 	/*Unique bugs table widget constants*/
 	public static final String ITEM_ATTRIBUTES = "item_attributes";

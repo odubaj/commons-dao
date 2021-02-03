@@ -87,10 +87,11 @@ class WidgetContentRepositoryTest extends BaseTest {
 				4
 		);
 
-		assertEquals(48, (long) overallStatisticsContent.getValues().get("statistics$executions$total"));
+		assertEquals(60, (long) overallStatisticsContent.getValues().get("statistics$executions$total"));
 		assertEquals(13, (long) overallStatisticsContent.getValues().get("statistics$executions$passed"));
 		assertEquals(13, (long) overallStatisticsContent.getValues().get("statistics$executions$skipped"));
 		assertEquals(22, (long) overallStatisticsContent.getValues().get("statistics$executions$failed"));
+		assertEquals(12, (long) overallStatisticsContent.getValues().get("statistics$executions$untested"));
 		assertEquals(9, (long) overallStatisticsContent.getValues().get("statistics$defects$to_investigate$total"));
 		assertEquals(16, (long) overallStatisticsContent.getValues().get("statistics$defects$system_issue$total"));
 		assertEquals(11, (long) overallStatisticsContent.getValues().get("statistics$defects$automation_bug$total"));
@@ -200,7 +201,7 @@ class WidgetContentRepositoryTest extends BaseTest {
 		assertNotNull(passStatisticsResult);
 		assertEquals(4, passStatisticsResult.getNumber());
 		assertEquals(3, passStatisticsResult.getPassed());
-		assertEquals(12, passStatisticsResult.getTotal());
+		assertEquals(15, passStatisticsResult.getTotal());
 	}
 
 	@Test
@@ -213,7 +214,7 @@ class WidgetContentRepositoryTest extends BaseTest {
 		assertNotNull(passStatisticsResult);
 		assertEquals(4, passStatisticsResult.getNumber());
 		assertEquals(13, passStatisticsResult.getPassed());
-		assertEquals(48, passStatisticsResult.getTotal());
+		assertEquals(60, passStatisticsResult.getTotal());
 	}
 
 	@Test
@@ -366,7 +367,8 @@ class WidgetContentRepositoryTest extends BaseTest {
 
 			assertEquals(Double.parseDouble(currentStatistics.get(NOT_PASSED_STATISTICS_KEY)),
 					BigDecimal.valueOf((double) 100 * (testStatistics.get("statistics$executions$skipped") + testStatistics.get(
-							"statistics$executions$failed")) / executionsSum).setScale(2, RoundingMode.HALF_UP).doubleValue(),
+							"statistics$executions$failed") + testStatistics.get("statistics$executions$untested")) / 
+							executionsSum).setScale(2, RoundingMode.HALF_UP).doubleValue(),
 					0.01
 			);
 		});
@@ -964,7 +966,8 @@ class WidgetContentRepositoryTest extends BaseTest {
 				"statistics$executions$total",
 				"statistics$executions$failed",
 				"statistics$executions$passed",
-				"statistics$executions$skipped"
+				"statistics$executions$skipped",
+				"statistics$executions$untested"
 		);
 	}
 
@@ -977,6 +980,7 @@ class WidgetContentRepositoryTest extends BaseTest {
 				"statistics$defects$to_investigate$ti001",
 				"statistics$executions$failed",
 				"statistics$executions$skipped",
+				"statistics$executions$untested",
 				"statistics$executions$passed",
 				"statistics$executions$total",
 				"statistics$defects$no_defect$total",
@@ -1005,6 +1009,7 @@ class WidgetContentRepositoryTest extends BaseTest {
 				"statistics$defects$to_investigate$total",
 				"statistics$executions$failed",
 				"statistics$executions$skipped",
+				"statistics$executions$untested",
 				"statistics$executions$passed",
 				"statistics$executions$total"
 		);
@@ -1018,6 +1023,7 @@ class WidgetContentRepositoryTest extends BaseTest {
 				"statistics$defects$to_investigate$ti001",
 				"statistics$executions$failed",
 				"statistics$executions$skipped",
+				"statistics$executions$untested",
 				"statistics$executions$total",
 				"startTime",
 				"status",
@@ -1086,7 +1092,8 @@ class WidgetContentRepositoryTest extends BaseTest {
 						.put("statistics$executions$passed", 3)
 						.put("statistics$executions$skipped", 4)
 						.put("statistics$executions$failed", 3)
-						.put("statistics$executions$total", 10)
+						.put("statistics$executions$untested", 3)
+						.put("statistics$executions$total", 13)
 						.build()
 		);
 		predefinedLaunchesComparisonStatistics.put(2L,
@@ -1098,7 +1105,8 @@ class WidgetContentRepositoryTest extends BaseTest {
 						.put("statistics$executions$passed", 2)
 						.put("statistics$executions$skipped", 3)
 						.put("statistics$executions$failed", 6)
-						.put("statistics$executions$total", 11)
+						.put("statistics$executions$untested", 3)
+						.put("statistics$executions$total", 14)
 						.build()
 		);
 
@@ -1113,18 +1121,21 @@ class WidgetContentRepositoryTest extends BaseTest {
 				ImmutableMap.<String, Integer>builder().put("statistics$executions$passed", 3)
 						.put("statistics$executions$skipped", 4)
 						.put("statistics$executions$failed", 3)
+						.put("statistics$executions$untested", 3)
 						.build()
 		);
 		investigatedTrendMap.put(2L,
 				ImmutableMap.<String, Integer>builder().put("statistics$executions$passed", 2)
 						.put("statistics$executions$skipped", 3)
 						.put("statistics$executions$failed", 6)
+						.put("statistics$executions$untested", 3)
 						.build()
 		);
 		investigatedTrendMap.put(3L,
 				ImmutableMap.<String, Integer>builder().put("statistics$executions$passed", 5)
 						.put("statistics$executions$skipped", 5)
 						.put("statistics$executions$failed", 5)
+						.put("statistics$executions$untested", 3)
 						.build()
 		);
 
