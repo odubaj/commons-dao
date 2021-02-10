@@ -35,10 +35,12 @@ public enum TestItemIssueGroup /*implements StatisticsAwareness*/ {
 	NOT_ISSUE_FLAG("NOT_ISSUE", "notIssue", ""),
 
 	PRODUCT_BUG("PRODUCT_BUG", "productBug", "pb001"),
-	AUTOMATION_BUG("AUTOMATION_BUG", "automationBug", "ab001"),
+	NEW_BUG("NEW_BUG", "newBug", "pnb001"),
+	KNOWN_BUG("KNOWN_BUG", "knownBug", "pkb001"),
+	TEST_BUG("TEST_BUG", "testBug", "tb001"),
 	SYSTEM_ISSUE("SYSTEM_ISSUE", "systemIssue", "si001"),
 	TO_INVESTIGATE("TO_INVESTIGATE", "toInvestigate", "ti001"),
-	NO_DEFECT("NO_DEFECT", "noDefect", "nd001");
+	MINOR_DEFECT("MINOR_DEFECT", "minorDefect", "md001");
 
 	private final String value;
 

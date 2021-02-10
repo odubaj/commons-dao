@@ -28,13 +28,13 @@ public enum JIssueGroupEnum implements EnumType {
 
     PRODUCT_BUG("PRODUCT_BUG"),
 
-    AUTOMATION_BUG("AUTOMATION_BUG"),
+    TEST_BUG("TEST_BUG"),
 
     SYSTEM_ISSUE("SYSTEM_ISSUE"),
 
     TO_INVESTIGATE("TO_INVESTIGATE"),
 
-    NO_DEFECT("NO_DEFECT");
+    MINOR_DEFECT("MINOR_DEFECT");
 
     private final String literal;
 

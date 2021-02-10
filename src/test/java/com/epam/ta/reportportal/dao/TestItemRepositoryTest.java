@@ -429,7 +429,7 @@ class TestItemRepositoryTest extends BaseTest {
 	void selectIssueLocatorsByProject() {
 		final List<IssueType> issueTypes = testItemRepository.selectIssueLocatorsByProject(1L);
 		assertNotNull(issueTypes, "IssueTypes should not be null");
-		assertEquals(5, issueTypes.size(), "Incorrect size");
+		assertEquals(7, issueTypes.size(), "Incorrect size");
 	}
 
 	@Test
@@ -512,8 +512,8 @@ class TestItemRepositoryTest extends BaseTest {
 				it.getItemResults().getIssue().getIssueType().getIssueGroup().getTestItemIssueGroup()
 		));
 
-		List<TestItem> withoutAutomationBug = testItemRepository.findAllNotInIssueGroupByLaunch(3L, TestItemIssueGroup.AUTOMATION_BUG);
-		withoutAutomationBug.forEach(it -> assertNotEquals(TestItemIssueGroup.AUTOMATION_BUG,
+		List<TestItem> withoutAutomationBug = testItemRepository.findAllNotInIssueGroupByLaunch(3L, TestItemIssueGroup.TEST_BUG);
+		withoutAutomationBug.forEach(it -> assertNotEquals(TestItemIssueGroup.TEST_BUG,
 				it.getItemResults().getIssue().getIssueType().getIssueGroup().getTestItemIssueGroup()
 		));
 
@@ -527,8 +527,8 @@ class TestItemRepositoryTest extends BaseTest {
 				it.getItemResults().getIssue().getIssueType().getIssueGroup().getTestItemIssueGroup()
 		));
 
-		List<TestItem> withoutNoDefect = testItemRepository.findAllNotInIssueGroupByLaunch(3L, TestItemIssueGroup.NO_DEFECT);
-		withoutNoDefect.forEach(it -> assertNotEquals(TestItemIssueGroup.NO_DEFECT,
+		List<TestItem> withoutNoDefect = testItemRepository.findAllNotInIssueGroupByLaunch(3L, TestItemIssueGroup.MINOR_DEFECT);
+		withoutNoDefect.forEach(it -> assertNotEquals(TestItemIssueGroup.MINOR_DEFECT,
 				it.getItemResults().getIssue().getIssueType().getIssueGroup().getTestItemIssueGroup()
 		));
 	}
@@ -541,9 +541,9 @@ class TestItemRepositoryTest extends BaseTest {
 						it.getItemResults().getIssue().getIssueType().getIssueGroup().getTestItemIssueGroup()
 				));
 
-		List<Long> withoutAutomationBug = testItemRepository.selectIdsNotInIssueGroupByLaunch(3L, TestItemIssueGroup.AUTOMATION_BUG);
+		List<Long> withoutAutomationBug = testItemRepository.selectIdsNotInIssueGroupByLaunch(3L, TestItemIssueGroup.TEST_BUG);
 		testItemRepository.findAllById(withoutAutomationBug)
-				.forEach(it -> assertNotEquals(TestItemIssueGroup.AUTOMATION_BUG,
+				.forEach(it -> assertNotEquals(TestItemIssueGroup.TEST_BUG,
 						it.getItemResults().getIssue().getIssueType().getIssueGroup().getTestItemIssueGroup()
 				));
 
@@ -559,9 +559,9 @@ class TestItemRepositoryTest extends BaseTest {
 						it.getItemResults().getIssue().getIssueType().getIssueGroup().getTestItemIssueGroup()
 				));
 
-		List<Long> withoutNoDefect = testItemRepository.selectIdsNotInIssueGroupByLaunch(3L, TestItemIssueGroup.NO_DEFECT);
+		List<Long> withoutNoDefect = testItemRepository.selectIdsNotInIssueGroupByLaunch(3L, TestItemIssueGroup.MINOR_DEFECT);
 		testItemRepository.findAllById(withoutNoDefect)
-				.forEach(it -> assertNotEquals(TestItemIssueGroup.NO_DEFECT,
+				.forEach(it -> assertNotEquals(TestItemIssueGroup.MINOR_DEFECT,
 						it.getItemResults().getIssue().getIssueType().getIssueGroup().getTestItemIssueGroup()
 				));
 	}

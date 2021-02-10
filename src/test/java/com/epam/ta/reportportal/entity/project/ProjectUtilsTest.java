@@ -115,20 +115,20 @@ class ProjectUtilsTest {
 		tiGroup.setTestItemIssueGroup(TestItemIssueGroup.TO_INVESTIGATE);
 		IssueGroup abGroup = new IssueGroup();
 		abGroup.setId(2);
-		abGroup.setTestItemIssueGroup(TestItemIssueGroup.AUTOMATION_BUG);
+		abGroup.setTestItemIssueGroup(TestItemIssueGroup.TEST_BUG);
 		IssueGroup pbGroup = new IssueGroup();
 		pbGroup.setId(3);
 		pbGroup.setTestItemIssueGroup(TestItemIssueGroup.PRODUCT_BUG);
 		IssueGroup ndGroup = new IssueGroup();
 		ndGroup.setId(4);
-		ndGroup.setTestItemIssueGroup(TestItemIssueGroup.NO_DEFECT);
+		ndGroup.setTestItemIssueGroup(TestItemIssueGroup.MINOR_DEFECT);
 		IssueGroup siGroup = new IssueGroup();
 		siGroup.setId(5);
 		siGroup.setTestItemIssueGroup(TestItemIssueGroup.SYSTEM_ISSUE);
 		return Arrays.asList(new IssueType(tiGroup, "ti001", "To Investigate", "TI", "#ffb743"),
-				new IssueType(abGroup, "ab001", "Automation Bug", "AB", "#f7d63e"),
+				new IssueType(abGroup, "tb001", "Test Bug", "TB", "#f7d63e"),
 				new IssueType(pbGroup, "pb001", "Product Bug", "PB", "#ec3900"),
-				new IssueType(ndGroup, "nd001", "No Defect", "ND", "#777777"),
+				new IssueType(ndGroup, "md001", "Minor Defect", "MD", "#777777"),
 				new IssueType(siGroup, "si001", "System Issue", "SI", "#0274d1")
 		);
 	}

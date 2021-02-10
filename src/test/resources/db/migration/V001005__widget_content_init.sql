@@ -191,14 +191,16 @@ BEGIN
     INSERT INTO statistics_field (sf_id, name) VALUES (5, 'statistics$executions$untested');
     INSERT INTO statistics_field (sf_id, name) VALUES (6, 'statistics$defects$to_investigate$total');
     INSERT INTO statistics_field (sf_id, name) VALUES (7, 'statistics$defects$system_issue$total');
-    INSERT INTO statistics_field (sf_id, name) VALUES (8, 'statistics$defects$automation_bug$total');
+    INSERT INTO statistics_field (sf_id, name) VALUES (8, 'statistics$defects$test_bug$total');
     INSERT INTO statistics_field (sf_id, name) VALUES (9, 'statistics$defects$product_bug$total');
-    INSERT INTO statistics_field (sf_id, name) VALUES (10, 'statistics$defects$no_defect$total');
+    INSERT INTO statistics_field (sf_id, name) VALUES (10, 'statistics$defects$minor_defect$total');
     INSERT INTO statistics_field (sf_id, name) VALUES (11, 'statistics$defects$to_investigate$ti001');
     INSERT INTO statistics_field (sf_id, name) VALUES (12, 'statistics$defects$system_issue$si001');
-    INSERT INTO statistics_field (sf_id, name) VALUES (13, 'statistics$defects$automation_bug$ab001');
+    INSERT INTO statistics_field (sf_id, name) VALUES (13, 'statistics$defects$test_bug$tb001');
     INSERT INTO statistics_field (sf_id, name) VALUES (14, 'statistics$defects$product_bug$pb001');
-    INSERT INTO statistics_field (sf_id, name) VALUES (15, 'statistics$defects$no_defect$nd001');
+    INSERT INTO statistics_field (sf_id, name) VALUES (15, 'statistics$defects$minor_defect$md001');
+    INSERT INTO statistics_field (sf_id, name) VALUES (16, 'statistics$defects$product_bug$pnb001');
+    INSERT INTO statistics_field (sf_id, name) VALUES (17, 'statistics$defects$product_bug$pkb001');
 
     -------------------------------------------------------------------------------------------------------------------<
     -------------------------------------------------------------------------------------------------------------------<

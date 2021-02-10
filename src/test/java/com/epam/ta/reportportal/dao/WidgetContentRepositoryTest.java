@@ -75,7 +75,7 @@ class WidgetContentRepositoryTest extends BaseTest {
 
 	@Test
 	void overallStatisticsContent() {
-		String sortingColumn = "statistics$defects$no_defect$nd001";
+		String sortingColumn = "statistics$defects$minor_defect$md001";
 		Filter filter = buildDefaultFilter(1L);
 		List<String> contentFields = buildContentFields();
 		Sort sort = Sort.by(Lists.newArrayList(new Sort.Order(Sort.Direction.DESC, sortingColumn)));
@@ -94,14 +94,14 @@ class WidgetContentRepositoryTest extends BaseTest {
 		assertEquals(12, (long) overallStatisticsContent.getValues().get("statistics$executions$untested"));
 		assertEquals(9, (long) overallStatisticsContent.getValues().get("statistics$defects$to_investigate$total"));
 		assertEquals(16, (long) overallStatisticsContent.getValues().get("statistics$defects$system_issue$total"));
-		assertEquals(11, (long) overallStatisticsContent.getValues().get("statistics$defects$automation_bug$total"));
+		assertEquals(11, (long) overallStatisticsContent.getValues().get("statistics$defects$test_bug$total"));
 		assertEquals(17, (long) overallStatisticsContent.getValues().get("statistics$defects$product_bug$total"));
-		assertEquals(11, (long) overallStatisticsContent.getValues().get("statistics$defects$no_defect$total"));
+		assertEquals(11, (long) overallStatisticsContent.getValues().get("statistics$defects$minor_defect$total"));
 		assertEquals(9, (long) overallStatisticsContent.getValues().get("statistics$defects$to_investigate$ti001"));
 		assertEquals(16, (long) overallStatisticsContent.getValues().get("statistics$defects$system_issue$si001"));
-		assertEquals(11, (long) overallStatisticsContent.getValues().get("statistics$defects$automation_bug$ab001"));
+		assertEquals(11, (long) overallStatisticsContent.getValues().get("statistics$defects$test_bug$tb001"));
 		assertEquals(17, (long) overallStatisticsContent.getValues().get("statistics$defects$product_bug$pb001"));
-		assertEquals(11, (long) overallStatisticsContent.getValues().get("statistics$defects$no_defect$nd001"));
+		assertEquals(11, (long) overallStatisticsContent.getValues().get("statistics$defects$minor_defect$md001"));
 	}
 
 	@Test
@@ -120,7 +120,7 @@ class WidgetContentRepositoryTest extends BaseTest {
 	@Test
 	void launchStatistics() {
 
-		String sortingColumn = "statistics$defects$no_defect$nd001";
+		String sortingColumn = "statistics$defects$minor_defect$md001";
 
 		Filter filter = buildDefaultFilter(1L);
 		List<String> contentFields = buildContentFields();
@@ -144,7 +144,7 @@ class WidgetContentRepositoryTest extends BaseTest {
 
 		Map<Long, Map<String, Integer>> statistics = buildTotalDefectsMap();
 
-		String sortingColumn = "statistics$defects$no_defect$nd001";
+		String sortingColumn = "statistics$defects$minor_defect$md001";
 
 		Filter filter = buildDefaultFilter(1L);
 
@@ -451,7 +451,7 @@ class WidgetContentRepositoryTest extends BaseTest {
 	void productStatusFilterGroupedWidget() {
 
 		List<Sort.Order> firstOrdering = Lists.newArrayList(new Sort.Order(Sort.Direction.DESC, "statistics$defects$product_bug$pb001"));
-		List<Sort.Order> secondOrdering = Lists.newArrayList(new Sort.Order(Sort.Direction.ASC, "statistics$defects$automation_bug$ab001"));
+		List<Sort.Order> secondOrdering = Lists.newArrayList(new Sort.Order(Sort.Direction.ASC, "statistics$defects$test_bug$tb001"));
 
 		Sort firstSort = Sort.by(firstOrdering);
 		Sort secondSort = Sort.by(secondOrdering);
@@ -522,7 +522,7 @@ class WidgetContentRepositoryTest extends BaseTest {
 
 	@Test
 	void overallStatisticsContentSorting() {
-		String sortingColumn = "statistics$defects$no_defect$nd001";
+		String sortingColumn = "statistics$defects$minor_defect$md001";
 		Filter filter = buildDefaultFilter(1L);
 		List<String> contentFields = buildContentFields();
 		List<Sort.Order> orders = filter.getTarget()
@@ -546,7 +546,7 @@ class WidgetContentRepositoryTest extends BaseTest {
 	@Test
 	void launchStatisticsSorting() {
 
-		String sortingColumn = "statistics$defects$no_defect$nd001";
+		String sortingColumn = "statistics$defects$minor_defect$md001";
 
 		Filter filter = buildDefaultFilter(1L);
 		List<String> contentFields = buildContentFields();
@@ -567,7 +567,7 @@ class WidgetContentRepositoryTest extends BaseTest {
 	@Test
 	void investigatedStatisticsSorting() {
 
-		String sortingColumn = "statistics$defects$no_defect$nd001";
+		String sortingColumn = "statistics$defects$minor_defect$md001";
 
 		Filter filter = buildDefaultFilter(1L);
 
@@ -586,7 +586,7 @@ class WidgetContentRepositoryTest extends BaseTest {
 
 	@Test
 	void timelineInvestigatedStatisticsSorting() {
-		String sortingColumn = "statistics$defects$no_defect$nd001";
+		String sortingColumn = "statistics$defects$minor_defect$md001";
 
 		Filter filter = buildDefaultFilter(1L);
 
@@ -605,7 +605,7 @@ class WidgetContentRepositoryTest extends BaseTest {
 
 	@Test
 	void launchPassPerLaunchStatisticsSorting() {
-		String sortingColumn = "statistics$defects$no_defect$nd001";
+		String sortingColumn = "statistics$defects$minor_defect$md001";
 		Filter filter = buildDefaultFilter(1L);
 
 		filter.withCondition(new FilterCondition(Condition.EQUALS, false, "launch name 1", CRITERIA_NAME));
@@ -625,7 +625,7 @@ class WidgetContentRepositoryTest extends BaseTest {
 
 	@Test
 	void summaryPassStatisticsSorting() {
-		String sortingColumn = "statistics$defects$no_defect$nd001";
+		String sortingColumn = "statistics$defects$minor_defect$md001";
 		Filter filter = buildDefaultFilter(1L);
 		List<Sort.Order> orders = filter.getTarget()
 				.getCriteriaHolders()
@@ -642,7 +642,7 @@ class WidgetContentRepositoryTest extends BaseTest {
 
 	@Test
 	void casesTrendStatisticsSorting() {
-		String sortingColumn = "statistics$defects$no_defect$nd001";
+		String sortingColumn = "statistics$defects$minor_defect$md001";
 		Filter filter = buildDefaultFilter(1L);
 		String executionContentField = "statistics$executions$total";
 		List<Sort.Order> orders = filter.getTarget()
@@ -666,7 +666,7 @@ class WidgetContentRepositoryTest extends BaseTest {
 
 	@Test
 	void bugTrendStatisticsSorting() {
-		String sortingColumn = "statistics$defects$no_defect$nd001";
+		String sortingColumn = "statistics$defects$minor_defect$md001";
 		Filter filter = buildDefaultFilter(1L);
 		List<String> contentFields = buildTotalDefectsContentFields();
 		List<Sort.Order> orders = filter.getTarget()
@@ -685,7 +685,7 @@ class WidgetContentRepositoryTest extends BaseTest {
 
 	@Test
 	void launchesComparisonStatisticsSorting() {
-		String sortingColumn = "statistics$defects$no_defect$nd001";
+		String sortingColumn = "statistics$defects$minor_defect$md001";
 		Filter filter = buildDefaultFilter(1L);
 		List<String> contentFields = buildTotalContentFields();
 		filter = filter.withConditions(Lists.newArrayList(new FilterCondition(Condition.EQUALS, false, "launch name 1", NAME)));
@@ -710,7 +710,7 @@ class WidgetContentRepositoryTest extends BaseTest {
 
 	@Test
 	void launchesDurationStatisticsSorting() {
-		String sortingColumn = "statistics$defects$no_defect$nd001";
+		String sortingColumn = "statistics$defects$minor_defect$md001";
 		Filter filter = buildDefaultFilter(1L);
 		List<Sort.Order> orders = filter.getTarget()
 				.getCriteriaHolders()
@@ -729,7 +729,7 @@ class WidgetContentRepositoryTest extends BaseTest {
 
 	@Test
 	void notPassedCasesStatisticsSorting() {
-		String sortingColumn = "statistics$defects$no_defect$nd001";
+		String sortingColumn = "statistics$defects$minor_defect$md001";
 		Filter filter = buildDefaultFilter(1L);
 		List<Sort.Order> orders = filter.getTarget()
 				.getCriteriaHolders()
@@ -747,7 +747,7 @@ class WidgetContentRepositoryTest extends BaseTest {
 
 	@Test
 	void launchesTableStatisticsSorting() {
-		String sortingColumn = "statistics$defects$no_defect$nd001";
+		String sortingColumn = "statistics$defects$minor_defect$md001";
 		Filter filter = buildDefaultFilter(1L);
 		List<Sort.Order> orders = filter.getTarget()
 				.getCriteriaHolders()
@@ -790,7 +790,7 @@ class WidgetContentRepositoryTest extends BaseTest {
 
 	@Test
 	void uniqueBugStatisticsSorting() {
-		String sortingColumn = "statistics$defects$no_defect$nd001";
+		String sortingColumn = "statistics$defects$minor_defect$md001";
 		Filter filter = buildDefaultFilter(1L);
 
 		List<Sort.Order> orders = filter.getTarget()
@@ -810,7 +810,7 @@ class WidgetContentRepositoryTest extends BaseTest {
 	@Test
 	void productStatusFilterGroupedWidgetSorting() {
 
-		String sortingColumn = "statistics$defects$no_defect$nd001";
+		String sortingColumn = "statistics$defects$minor_defect$md001";
 
 		Filter filter = buildDefaultFilter(1L);
 
@@ -842,7 +842,7 @@ class WidgetContentRepositoryTest extends BaseTest {
 
 	@Test
 	void productStatusLaunchGroupedWidgetSorting() {
-		String sortingColumn = "statistics$defects$no_defect$nd001";
+		String sortingColumn = "statistics$defects$minor_defect$md001";
 		Filter filter = buildDefaultTestFilter(1L);
 		List<Sort.Order> orders = filter.getTarget()
 				.getCriteriaHolders()
@@ -950,9 +950,9 @@ class WidgetContentRepositoryTest extends BaseTest {
 	}
 
 	private List<String> buildLaunchesTableContentFields() {
-		return Lists.newArrayList("statistics$defects$no_defect$nd001",
+		return Lists.newArrayList("statistics$defects$minor_defect$md001",
 				"statistics$defects$product_bug$pb001",
-				"statistics$defects$automation_bug$ab001",
+				"statistics$defects$test_bug$tb001",
 				"statistics$defects$system_issue$si001",
 				"statistics$defects$to_investigate$ti001",
 				CRITERIA_END_TIME,
@@ -973,9 +973,9 @@ class WidgetContentRepositoryTest extends BaseTest {
 
 	private List<String> buildContentFields() {
 
-		return Lists.newArrayList("statistics$defects$no_defect$nd001",
+		return Lists.newArrayList("statistics$defects$minor_defect$md001",
 				"statistics$defects$product_bug$pb001",
-				"statistics$defects$automation_bug$ab001",
+				"statistics$defects$test_bug$tb001",
 				"statistics$defects$system_issue$si001",
 				"statistics$defects$to_investigate$ti001",
 				"statistics$executions$failed",
@@ -983,9 +983,9 @@ class WidgetContentRepositoryTest extends BaseTest {
 				"statistics$executions$untested",
 				"statistics$executions$passed",
 				"statistics$executions$total",
-				"statistics$defects$no_defect$total",
+				"statistics$defects$minor_defect$total",
 				"statistics$defects$product_bug$total",
-				"statistics$defects$automation_bug$total",
+				"statistics$defects$test_bug$total",
 				"statistics$defects$system_issue$total",
 				"statistics$defects$to_investigate$total"
 
@@ -995,16 +995,16 @@ class WidgetContentRepositoryTest extends BaseTest {
 	private List<String> buildTotalDefectsContentFields() {
 		return Lists.newArrayList("statistics$defects$to_investigate$total",
 				"statistics$defects$product_bug$total",
-				"statistics$defects$automation_bug$total",
+				"statistics$defects$test_bug$total",
 				"statistics$defects$system_issue$total",
-				"statistics$defects$no_defect$total"
+				"statistics$defects$minor_defect$total"
 		);
 	}
 
 	private List<String> buildTotalContentFields() {
-		return Lists.newArrayList("statistics$defects$no_defect$total",
+		return Lists.newArrayList("statistics$defects$minor_defect$total",
 				"statistics$defects$product_bug$total",
-				"statistics$defects$automation_bug$total",
+				"statistics$defects$test_bug$total",
 				"statistics$defects$system_issue$total",
 				"statistics$defects$to_investigate$total",
 				"statistics$executions$failed",
@@ -1016,9 +1016,9 @@ class WidgetContentRepositoryTest extends BaseTest {
 	}
 
 	private List<String> buildProductStatusContentFields() {
-		return Lists.newArrayList("statistics$defects$no_defect$nd001",
+		return Lists.newArrayList("statistics$defects$minor_defect$md001",
 				"statistics$defects$product_bug$pb001",
-				"statistics$defects$automation_bug$ab001",
+				"statistics$defects$test_bug$tb001",
 				"statistics$defects$system_issue$si001",
 				"statistics$defects$to_investigate$ti001",
 				"statistics$executions$failed",
@@ -1027,9 +1027,9 @@ class WidgetContentRepositoryTest extends BaseTest {
 				"statistics$executions$total",
 				"startTime",
 				"status",
-				"statistics$defects$no_defect$total",
+				"statistics$defects$minor_defect$total",
 				"statistics$defects$product_bug$total",
-				"statistics$defects$automation_bug$total",
+				"statistics$defects$test_bug$total",
 				"statistics$defects$system_issue$total",
 				"statistics$defects$to_investigate$total"
 
@@ -1046,33 +1046,33 @@ class WidgetContentRepositoryTest extends BaseTest {
 		investigatedTrendMap.put(1L,
 				ImmutableMap.<String, Integer>builder().put("statistics$defects$to_investigate$total", 2)
 						.put("statistics$defects$system_issue$total", 8)
-						.put("statistics$defects$automation_bug$total", 7)
+						.put("statistics$defects$test_bug$total", 7)
 						.put("statistics$defects$product_bug$total", 13)
-						.put("statistics$defects$no_defect$total", 2)
+						.put("statistics$defects$minor_defect$total", 2)
 						.build()
 		);
 		investigatedTrendMap.put(2L,
 				ImmutableMap.<String, Integer>builder().put("statistics$defects$to_investigate$total", 3)
 						.put("statistics$defects$system_issue$total", 3)
-						.put("statistics$defects$automation_bug$total", 1)
+						.put("statistics$defects$test_bug$total", 1)
 						.put("statistics$defects$product_bug$total", 1)
-						.put("statistics$defects$no_defect$total", 2)
+						.put("statistics$defects$minor_defect$total", 2)
 						.build()
 		);
 		investigatedTrendMap.put(3L,
 				ImmutableMap.<String, Integer>builder().put("statistics$defects$to_investigate$total", 1)
 						.put("statistics$defects$system_issue$total", 1)
-						.put("statistics$defects$automation_bug$total", 1)
+						.put("statistics$defects$test_bug$total", 1)
 						.put("statistics$defects$product_bug$total", 1)
-						.put("statistics$defects$no_defect$total", 1)
+						.put("statistics$defects$minor_defect$total", 1)
 						.build()
 		);
 		investigatedTrendMap.put(4L,
 				ImmutableMap.<String, Integer>builder().put("statistics$defects$to_investigate$total", 3)
 						.put("statistics$defects$system_issue$total", 4)
-						.put("statistics$defects$automation_bug$total", 2)
+						.put("statistics$defects$test_bug$total", 2)
 						.put("statistics$defects$product_bug$total", 2)
-						.put("statistics$defects$no_defect$total", 6)
+						.put("statistics$defects$minor_defect$total", 6)
 						.build()
 		);
 
@@ -1086,9 +1086,9 @@ class WidgetContentRepositoryTest extends BaseTest {
 		predefinedLaunchesComparisonStatistics.put(1L,
 				ImmutableMap.<String, Integer>builder().put("statistics$defects$to_investigate$total", 2)
 						.put("statistics$defects$system_issue$total", 8)
-						.put("statistics$defects$automation_bug$total", 7)
+						.put("statistics$defects$test_bug$total", 7)
 						.put("statistics$defects$product_bug$total", 13)
-						.put("statistics$defects$no_defect$total", 2)
+						.put("statistics$defects$minor_defect$total", 2)
 						.put("statistics$executions$passed", 3)
 						.put("statistics$executions$skipped", 4)
 						.put("statistics$executions$failed", 3)
@@ -1099,9 +1099,9 @@ class WidgetContentRepositoryTest extends BaseTest {
 		predefinedLaunchesComparisonStatistics.put(2L,
 				ImmutableMap.<String, Integer>builder().put("statistics$defects$to_investigate$total", 3)
 						.put("statistics$defects$system_issue$total", 3)
-						.put("statistics$defects$automation_bug$total", 1)
+						.put("statistics$defects$test_bug$total", 1)
 						.put("statistics$defects$product_bug$total", 1)
-						.put("statistics$defects$no_defect$total", 2)
+						.put("statistics$defects$minor_defect$total", 2)
 						.put("statistics$executions$passed", 2)
 						.put("statistics$executions$skipped", 3)
 						.put("statistics$executions$failed", 6)
@@ -1146,7 +1146,7 @@ class WidgetContentRepositoryTest extends BaseTest {
 	@Test
 	void componentHealthCheck() {
 
-		String sortingColumn = "statistics$defects$no_defect$nd001";
+		String sortingColumn = "statistics$defects$minor_defect$md001";
 
 		Filter launchFilter = buildDefaultFilter(1L);
 		List<Sort.Order> orderings = Lists.newArrayList(new Sort.Order(Sort.Direction.DESC, sortingColumn),
@@ -1178,7 +1178,7 @@ class WidgetContentRepositoryTest extends BaseTest {
 	@Test
 	void componentHealthCheckTable() {
 
-		String sortingColumn = "statistics$defects$no_defect$nd001";
+		String sortingColumn = "statistics$defects$minor_defect$md001";
 
 		Filter launchFilter = buildDefaultFilter(1L);
 		List<Sort.Order> orderings = Lists.newArrayList(new Sort.Order(Sort.Direction.DESC, sortingColumn),

@@ -27,9 +27,9 @@ public class WidgetContentRepositoryConstants {
 	public static final String EXECUTIONS_PASSED = "statistics$executions$passed";
 	public static final String EXECUTIONS_UNTESTED = "statistics$executions$untested";
 
-	public static final String DEFECTS_AUTOMATION_BUG_TOTAL = "statistics$defects$automation_bug$total";
+	public static final String DEFECTS_TEST_BUG_TOTAL = "statistics$defects$test_bug$total";
 	public static final String DEFECTS_PRODUCT_BUG_TOTAL = "statistics$defects$product_bug$total";
-	public static final String DEFECTS_NO_DEFECT_TOTAL = "statistics$defects$no_defect$total";
+	public static final String DEFECTS_MINOR_DEFECT_TOTAL = "statistics$defects$minor_defect$total";
 	public static final String DEFECTS_SYSTEM_ISSUE_TOTAL = "statistics$defects$system_issue$total";
 	public static final String DEFECTS_TO_INVESTIGATE_TOTAL = "statistics$defects$to_investigate$total";
 

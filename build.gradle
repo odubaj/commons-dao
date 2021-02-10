@@ -49,7 +49,7 @@ dependencies {
         compile 'com.epam.reportportal:commons-model'
     } else {
         compile 'com.github.reportportal:commons:22bb0294'
-        compile 'com.github.reportportal:commons-rules:e40bf6e2'
+        compile 'com.github.odubaj:commons-rules:e5d0d8f'
         //compile fileTree(dir: '/home/odubaj/DIPLOMKA/commons-rules/build/libs', include: ['*.jar'])
         compile 'com.github.odubaj:commons-model:2a2f927'
         //compile fileTree(dir: '/home/odubaj/DIPLOMKA/commons-model/build/libs', include: ['*.jar'])

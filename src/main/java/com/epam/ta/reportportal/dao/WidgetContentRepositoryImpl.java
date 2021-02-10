@@ -321,8 +321,8 @@ public class WidgetContentRepositoryImpl implements WidgetContentRepository {
 										.from(STATISTICS)
 										.join(STATISTICS_FIELD)
 										.onKey()
-										.where(STATISTICS_FIELD.NAME.in(DEFECTS_AUTOMATION_BUG_TOTAL,
-												DEFECTS_NO_DEFECT_TOTAL,
+										.where(STATISTICS_FIELD.NAME.in(DEFECTS_TEST_BUG_TOTAL,
+												DEFECTS_MINOR_DEFECT_TOTAL,
 												DEFECTS_TO_INVESTIGATE_TOTAL,
 												DEFECTS_PRODUCT_BUG_TOTAL,
 												DEFECTS_SYSTEM_ISSUE_TOTAL
@@ -372,8 +372,8 @@ public class WidgetContentRepositoryImpl implements WidgetContentRepository {
 								.from(STATISTICS)
 								.join(STATISTICS_FIELD)
 								.onKey()
-								.where(STATISTICS_FIELD.NAME.in(DEFECTS_AUTOMATION_BUG_TOTAL,
-										DEFECTS_NO_DEFECT_TOTAL,
+								.where(STATISTICS_FIELD.NAME.in(DEFECTS_TEST_BUG_TOTAL,
+										DEFECTS_MINOR_DEFECT_TOTAL,
 										DEFECTS_TO_INVESTIGATE_TOTAL,
 										DEFECTS_PRODUCT_BUG_TOTAL,
 										DEFECTS_SYSTEM_ISSUE_TOTAL
