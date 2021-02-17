@@ -189,99 +189,104 @@ BEGIN
     INSERT INTO statistics_field (sf_id, name) VALUES (3, 'statistics$executions$skipped');
     INSERT INTO statistics_field (sf_id, name) VALUES (4, 'statistics$executions$failed');
     INSERT INTO statistics_field (sf_id, name) VALUES (5, 'statistics$executions$untested');
-    INSERT INTO statistics_field (sf_id, name) VALUES (6, 'statistics$defects$to_investigate$total');
-    INSERT INTO statistics_field (sf_id, name) VALUES (7, 'statistics$defects$system_issue$total');
-    INSERT INTO statistics_field (sf_id, name) VALUES (8, 'statistics$defects$test_bug$total');
-    INSERT INTO statistics_field (sf_id, name) VALUES (9, 'statistics$defects$product_bug$total');
-    INSERT INTO statistics_field (sf_id, name) VALUES (10, 'statistics$defects$minor_defect$total');
-    INSERT INTO statistics_field (sf_id, name) VALUES (11, 'statistics$defects$to_investigate$ti001');
-    INSERT INTO statistics_field (sf_id, name) VALUES (12, 'statistics$defects$system_issue$si001');
-    INSERT INTO statistics_field (sf_id, name) VALUES (13, 'statistics$defects$test_bug$tb001');
-    INSERT INTO statistics_field (sf_id, name) VALUES (14, 'statistics$defects$product_bug$pb001');
-    INSERT INTO statistics_field (sf_id, name) VALUES (15, 'statistics$defects$minor_defect$md001');
-    INSERT INTO statistics_field (sf_id, name) VALUES (16, 'statistics$defects$product_bug$pnb001');
-    INSERT INTO statistics_field (sf_id, name) VALUES (17, 'statistics$defects$product_bug$pkb001');
+    INSERT INTO statistics_field (sf_id, name) VALUES (6, 'statistics$executions$running');
+    INSERT INTO statistics_field (sf_id, name) VALUES (7, 'statistics$defects$to_investigate$total');
+    INSERT INTO statistics_field (sf_id, name) VALUES (8, 'statistics$defects$system_issue$total');
+    INSERT INTO statistics_field (sf_id, name) VALUES (9, 'statistics$defects$test_bug$total');
+    INSERT INTO statistics_field (sf_id, name) VALUES (10, 'statistics$defects$product_bug$total');
+    INSERT INTO statistics_field (sf_id, name) VALUES (11, 'statistics$defects$minor_defect$total');
+    INSERT INTO statistics_field (sf_id, name) VALUES (12, 'statistics$defects$to_investigate$ti001');
+    INSERT INTO statistics_field (sf_id, name) VALUES (13, 'statistics$defects$system_issue$si001');
+    INSERT INTO statistics_field (sf_id, name) VALUES (14, 'statistics$defects$test_bug$tb001');
+    INSERT INTO statistics_field (sf_id, name) VALUES (15, 'statistics$defects$product_bug$pb001');
+    INSERT INTO statistics_field (sf_id, name) VALUES (16, 'statistics$defects$minor_defect$md001');
+    INSERT INTO statistics_field (sf_id, name) VALUES (17, 'statistics$defects$product_bug$pnb001');
+    INSERT INTO statistics_field (sf_id, name) VALUES (18, 'statistics$defects$product_bug$pkb001');
 
     -------------------------------------------------------------------------------------------------------------------<
     -------------------------------------------------------------------------------------------------------------------<
     -- LAUNCHES STATISTICS
-    INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch1, 1, 13);
+    INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch1, 1, 15);
     INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch1, 2, 3);
     INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch1, 3, 4);
     INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch1, 4, 3);
     INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch1, 5, 3);
-
     INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch1, 6, 2);
-    INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch1, 7, 8);
-    INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch1, 8, 7);
-    INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch1, 9, 13);
-    INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch1, 10, 2);
 
+    INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch1, 7, 2);
+    INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch1, 8, 8);
+    INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch1, 9, 7);
+    INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch1, 10, 13);
     INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch1, 11, 2);
-    INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch1, 12, 8);
-    INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch1, 13, 7);
-    INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch1, 14, 13);
-    INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch1, 15, 2);
+
+    INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch1, 12, 2);
+    INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch1, 13, 8);
+    INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch1, 14, 7);
+    INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch1, 15, 13);
+    INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch1, 16, 2);
 
     --
 
-    INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch2, 1, 14);
+    INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch2, 1, 16);
     INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch2, 2, 2);
     INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch2, 3, 3);
     INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch2, 4, 6);
     INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch2, 5, 3);
+    INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch2, 6, 2);
 
-    INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch2, 6, 3);
     INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch2, 7, 3);
-    INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch2, 8, 1);
+    INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch2, 8, 3);
     INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch2, 9, 1);
-    INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch2, 10, 2);
+    INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch2, 10, 1);
+    INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch2, 11, 2);
 
-    INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch2, 11, 3);
     INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch2, 12, 3);
-    INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch2, 13, 1);
+    INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch2, 13, 3);
     INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch2, 14, 1);
-    INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch2, 15, 2);
+    INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch2, 15, 1);
+    INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch2, 16, 2);
 
     --
 
-    INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch3, 1, 18);
+    INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch3, 1, 20);
     INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch3, 2, 5);
     INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch3, 3, 5);
     INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch3, 4, 5);
     INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch3, 5, 3);
+    INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch3, 6, 2);
 
-    INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch3, 6, 1);
     INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch3, 7, 1);
     INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch3, 8, 1);
     INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch3, 9, 1);
     INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch3, 10, 1);
-
     INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch3, 11, 1);
+
     INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch3, 12, 1);
     INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch3, 13, 1);
     INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch3, 14, 1);
     INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch3, 15, 1);
+    INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch3, 16, 1);
 
     --
 
-    INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch4, 1, 15);
+    INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch4, 1, 17);
     INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch4, 2, 3);
     INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch4, 3, 1);
     INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch4, 4, 8);
     INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch4, 5, 3);
+    INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch4, 6, 2);
 
-    INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch4, 6, 3);
-    INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch4, 7, 4);
-    INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch4, 8, 2);
+    INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch4, 7, 3);
+    INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch4, 8, 4);
     INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch4, 9, 2);
-    INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch4, 10, 6);
+    INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch4, 10, 2);
+    INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch4, 11, 6);
 
-    INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch4, 11, 3);
-    INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch4, 12, 4);
-    INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch4, 13, 2);
+    INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch4, 12, 3);
+    INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch4, 13, 4);
     INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch4, 14, 2);
-    INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch4, 15, 6);
+    INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch4, 15, 2);
+    INSERT INTO statistics (launch_id, statistics_field_id, s_counter) VALUES (launch4, 16, 6);
 
     INSERT INTO activity (user_id, project_id, entity, action, details, creation_date, object_id)
     VALUES (1, 1, 'LAUNCH', 'createLaunch', null, now(), null);

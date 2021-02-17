@@ -26,6 +26,7 @@ public enum StatusEnum {
 	PASSED("passed", true),
 	FAILED("failed", false),
 	UNTESTED("untested", false),
+	RUNNING("running", false),
 	STOPPED("stopped", false), //status for manually stopped launches
 	SKIPPED("skipped", false),
 	INTERRUPTED("failed", false),

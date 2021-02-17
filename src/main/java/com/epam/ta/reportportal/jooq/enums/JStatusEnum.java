@@ -43,6 +43,8 @@ public enum JStatusEnum implements EnumType {
 
     UNTESTED("UNTESTED"),
 
+    RUNNING("RUNNING"),
+
     INFO("INFO"),
 
     WARN("WARN");

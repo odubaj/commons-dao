@@ -170,7 +170,8 @@ public class WidgetContentRepositoryImpl implements WidgetContentRepository {
 		if (StringUtils.endsWithAny(criteria,
 				StatusEnum.FAILED.getExecutionCounterField(),
 				StatusEnum.SKIPPED.getExecutionCounterField(),
-				StatusEnum.UNTESTED.getExecutionCounterField()
+				StatusEnum.UNTESTED.getExecutionCounterField(),
+				StatusEnum.RUNNING.getExecutionCounterField()
 		)) {
 			StatusEnum status = StatusEnum.fromValue(StringUtils.substringAfterLast(criteria, STATISTICS_SEPARATOR))
 					.orElseThrow(() -> new ReportPortalException(ErrorType.UNCLASSIFIED_REPORT_PORTAL_ERROR));
@@ -575,7 +576,7 @@ public class WidgetContentRepositoryImpl implements WidgetContentRepository {
 								.from(STATISTICS)
 								.join(STATISTICS_FIELD)
 								.on(STATISTICS.STATISTICS_FIELD_ID.eq(STATISTICS_FIELD.SF_ID))
-								.where(STATISTICS_FIELD.NAME.in(EXECUTIONS_SKIPPED, EXECUTIONS_FAILED, EXECUTIONS_UNTESTED))
+								.where(STATISTICS_FIELD.NAME.in(EXECUTIONS_SKIPPED, EXECUTIONS_FAILED, EXECUTIONS_UNTESTED, EXECUTIONS_RUNNING))
 								.and(STATISTICS.LAUNCH_ID.eq(LAUNCH.ID))
 								.asField()
 								.cast(Double.class))

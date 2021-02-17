@@ -30,6 +30,7 @@ public enum SendCase {
 	ALWAYS("always"),
 	FAILED("failed"),
 	UNTESTED("untested"),
+	RUNNING("running"),
 	TO_INVESTIGATE("toInvestigate"),
 	MORE_10("more10"),
 	MORE_20("more20"),
