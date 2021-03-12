@@ -18,9 +18,14 @@ package com.epam.ta.reportportal.dao;
 
 import com.epam.ta.reportportal.entity.user.ProjectUser;
 import com.epam.ta.reportportal.entity.user.ProjectUserId;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 /**
  * @author Pavel Bortnik
  */
 public interface ProjectUserRepository extends ReportPortalRepository<ProjectUser, ProjectUserId> {
+
+    @Query(value = "INSERT INTO project_user (user_id, project_id, project_role) VALUES (:userId, 3, MEMBER)", nativeQuery = true)
+	void insertUserProjectDefault(@Param("userId") Long userId);
 }
